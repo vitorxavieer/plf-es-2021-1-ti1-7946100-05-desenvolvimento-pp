@@ -1,10 +1,10 @@
-# Nome do projeto
+# Desenvolvimento Pessoal e Profissional
 
-Escreva um ou dois  parágrafo resumindo o objetivo do seu projeto.
+O objetivo geral deste trabalho é a criação de uma aplicação web que possa servir de solução para o desenvolvimento pessoal/profissional dos usuários.
 
 ## Alunos integrantes da equipe
 
-* Nome completo do aluno 1
+* Gustavo Ferreira Evaristo
 * Nome completo do aluno 2
 * Nome completo do aluno 3
 * Nome completo do aluno 4
