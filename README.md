@@ -4,15 +4,19 @@ O objetivo geral deste trabalho é a criação de uma aplicação web que possa 
 
 ## Alunos integrantes da equipe
 
+* Ana Corina Damas Batista
+* Gustavo De Castro Nogueira
 * Gustavo Ferreira Evaristo
-* Nome completo do aluno 2
-* Nome completo do aluno 3
-* Nome completo do aluno 4
+* João Ricardo Ferreira Lemos
+* Octávio Oliveira Rocha
+* Vitor De Souza Xavier
+* Vitor Jose Lara Bastos
 
 ## Professores responsáveis
 
-* Nome completo do professor 1
-* Nome completo do professor 2
+* Luciana De Nardin
+* Rommel Vieira Carneiro
+* Simone Alves Nogueira
 
 ## Instruções de utilização
 
