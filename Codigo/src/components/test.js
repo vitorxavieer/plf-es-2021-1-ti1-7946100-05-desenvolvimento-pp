@@ -1,14 +1,15 @@
-import { useState, useEffect } from "react"
-import firebase from "firebase/app"
-import styled from "styled-components"
+import { useState, useEffect } from 'react';
+// import firebase from "firebase/app"
+import styled from 'styled-components';
 
 const TestStyled = styled.div`
   background-color: red;
   height: 20px;
   width: 20px;
-`
+`;
 
 function testFunction() {
+  /*
   return firebase
     .firestore()
     .collection("cities")
@@ -24,17 +25,18 @@ function testFunction() {
     .catch(error => {
       console.error("Error writing document: ", error)
     })
+    */
 }
 
 function Test() {
-  const [test, setTest] = useState(0)
-  const [testInput, setTestInput] = useState("")
+  const [test, setTest] = useState(0);
+  const [testInput, setTestInput] = useState('');
 
-  console.log("test")
+  console.log('test');
 
   useEffect(() => {
-    console.log("test0")
-  }, [])
+    console.log('test0');
+  }, []);
 
   return (
     <div>
@@ -42,12 +44,12 @@ function Test() {
       <input
         type="test"
         placeholder="Type something..."
-        onChange={e => setTestInput(e.eventPhase.target)}
+        /* onChange={(e) => setTestInput(e.eventPhase.target)} */
       />
       <button onClick={() => testFunction()}>Save doc</button>
       <TestStyled />
     </div>
-  )
+  );
 }
 
-export default Test
+export default Test;
