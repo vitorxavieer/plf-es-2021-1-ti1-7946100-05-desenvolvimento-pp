@@ -1,18 +1,25 @@
-import { useEffect } from "react"
-import * as firebase from "firebase"
+import { useEffect, useState } from "react"
 import Test from "./components/test"
 import "./App.css"
-import { CONFIG } from "./config"
+import { auth } from "./config/firebase.config"
 
 function App() {
+  const [user, setUser] = useState("")
+
   useEffect(() => {
-    if (!firebase.apps.length) {
-      firebase.initializeApp(CONFIG)
+    const unlisten = auth.onAuthStateChanged(authUser => {
+      authUser ? setUser(authUser) : setUser(null)
+    })
+    return () => {
+      unlisten()
     }
-  }, [])
+  })
+
+  console.log("user", user)
 
   return (
     <div className="App">
+      bla
       <Test />
     </div>
   )

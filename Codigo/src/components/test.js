@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react"
-import firebase from "firebase/app"
+import { useState } from "react"
 import styled from "styled-components"
+import "firebase/firestore"
+import { createDoc, login, logout } from "../utils/utils"
 
 const TestStyled = styled.div`
   background-color: red;
@@ -8,33 +9,13 @@ const TestStyled = styled.div`
   width: 20px;
 `
 
-function testFunction() {
-  return firebase
-    .firestore()
-    .collection("cities")
-    .doc("LA")
-    .set({
-      name: "Los Angeles",
-      state: "CA",
-      country: "USA",
-    })
-    .then(() => {
-      console.log("Document successfully written!")
-    })
-    .catch(error => {
-      console.error("Error writing document: ", error)
-    })
-}
-
 function Test() {
   const [test, setTest] = useState(0)
-  const [testInput, setTestInput] = useState("")
+  const [, setTestInput] = useState("")
+  const [feito, setFeito] = useState(false)
+  const [erros, setErros] = useState("")
 
-  console.log("test")
-
-  useEffect(() => {
-    console.log("test0")
-  }, [])
+  const valores = { unidades: "metros" }
 
   return (
     <div>
@@ -44,7 +25,9 @@ function Test() {
         placeholder="Type something..."
         onChange={e => setTestInput(e.eventPhase.target)}
       />
-      <button onClick={() => testFunction()}>Save doc</button>
+      <button onClick={() => createDoc("habitos", valores, setFeito, setErros)}>
+        Save doc
+      </button>
       <TestStyled />
     </div>
   )
