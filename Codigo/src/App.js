@@ -1,26 +1,25 @@
 import { useEffect, useState } from 'react';
-// import * as firebase from "firebase"
 import Test from './components/test';
 import './App.css';
-import { CONFIG } from './config';
-import Template, { BarraDeProgresso, Button } from './components/template';
-import Home from './pages/home';
-import CadastroHabito from './pages/cadastroHabito';
-import HomeLogado from './pages/homeLogado';
+import { auth } from './config/firebase.config';
 
 function App() {
-  const [pagina, setPagina] = useState(0);
-  /*   useEffect(() => {
-    if (!firebase.apps.length) {
-      firebase.initializeApp(CONFIG)
-    }
-  }, [])
-  */
+  const [user, setUser] = useState('');
+
+  useEffect(() => {
+    const unlisten = auth.onAuthStateChanged((authUser) => {
+      authUser ? setUser(authUser) : setUser(null);
+    });
+    return () => {
+      unlisten();
+    };
+  });
+
+  console.log('user', user);
 
   return (
     <div className="App">
-      {pagina == 0 && <Template />}
-      <Home />
+      bla
       <Test />
       <BarraDeProgresso valor={50} />
       {pagina == 2 && <CadastroHabito />}
