@@ -46,14 +46,15 @@ function App() {
               Home Logado
             </a>
           </li>
+
           <li>
             <a class="dropdown-item" onClick={() => setPagina(2)} href="#">
-              Template
+              Cadastro de Hábitos
             </a>
           </li>
           <li>
             <a class="dropdown-item" onClick={() => setPagina(3)} href="#">
-              Cadastro de Hábitos
+              Template
             </a>
           </li>
         </ul>
@@ -61,8 +62,8 @@ function App() {
       {/* <Test /> */}
       {pagina == 0 && <Home />}
       {pagina == 1 && <HomeLogado />}
-      {pagina == 2 && <Template />}
-      {pagina == 3 && <CadastroHabito />}
+      {pagina == 2 && <CadastroHabito />}
+      {pagina == 3 && <Template />}
       {/* <Button onClick={() => setPagina(pagina == 3 ? 0 : pagina + 1)}>
         Cadastrar {pagina}
       </Button> */}

@@ -13,6 +13,8 @@ export const Body = styled.div`
   .BlocoConteudo {
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
   }
 
   .Button {
@@ -20,8 +22,8 @@ export const Body = styled.div`
     padding: 5px;
   }
 
-  .Input::-webkit-input-placeholder {
-    color: #000;
+  .NewInputs {
+    margin: 10px;
   }
 
   .ImgButton {
@@ -36,6 +38,7 @@ export const Navbar = styled.nav`
   flex-wrap: wrap;
   margin-bottom: 40px;
   justify-content: center;
+  align-items: center;
 `;
 
 export const Img = styled.img`
@@ -50,8 +53,10 @@ function Home() {
   return (
     <Body className="container">
       <Navbar className="row">
-        <Template.Logo className="col-md-1">1%</Template.Logo>
-        <div className="col-md-11">
+        <Template.Logo className="col-xs-12 col-sm-1 col-md-1">
+          1%
+        </Template.Logo>
+        <div className="col-xs-12 col-sm-11 col-md-11">
           <Template.Input
             style={{ maxWidth: '120px' }}
             className="col-md-4"
@@ -65,6 +70,7 @@ function Home() {
             type="password"
           />
           <Template.Button
+            style={{ maxWidth: '160px', minWidth: '110px', width: '25%' }}
             onClick={() =>
               login('octavio.rocha@sga.pucminas.br', '123456', setErros)
             }
@@ -75,36 +81,36 @@ function Home() {
         </div>
       </Navbar>
       <main>
-        <h1>Como funciona?</h1>
-        <h2>1 - Cadastre um hábito</h2>
+        <Template.Header1 style={{ textAlign: 'center' }}>
+          Como funciona?
+        </Template.Header1>
+        <Template.Header2>1 - Cadastre um hábito</Template.Header2>
 
         <p>
           Cadastre hábitos pequenos, que se tornarão em precessos, e vão
           construir uma nova identidade
         </p>
         <div className="BlocoConteudo">
-          <Template.Button className="Button">😉</Template.Button>{' '}
-          <Template.NewInputs>Correr</Template.NewInputs>
+          <Template.Emoji className="Button">😉</Template.Emoji>
+          <div className="NewInputs">
+            <Template.NewInputs>Correr</Template.NewInputs>
+          </div>
         </div>
-        <h2>2 - Acompanhe os hábitos</h2>
+        <Template.Header2>2 - Acompanhe os hábitos</Template.Header2>
         <p>
           Veja uma lista atualizada diariamente com os hábitos a serem feitos
         </p>
         <div className="BlocoConteudo">
-          <Template.Input
-            className="Input"
-            placeholder="Correr 5km 2 vezes por semana"
-            disabled=""
-            readOnly="true"
-          />
-          <Template.Input
-            className="Input"
-            placeholder="Ler 10 páginas por dia"
-            disabled=""
-            readOnly="true"
-          />
+          <div className="NewInputs">
+            <Template.NewInputs>
+              Correr 5km 2 vezes por semana
+            </Template.NewInputs>
+          </div>
+          <div className="NewInputs">
+            <Template.NewInputs>Ler 10 páginas por dia</Template.NewInputs>
+          </div>
         </div>
-        <h2>3 - Veja o seu progresso</h2>
+        <Template.Header2>3 - Veja o seu progresso</Template.Header2>
         <p>
           Tenha o seu desenvolvimento registrado e acessível a qualquer momento
         </p>
@@ -115,7 +121,9 @@ function Home() {
               src="https://www.flaticon.com/svg/vstatic/svg/558/558385.svg?token=exp=1620653177~hmac=684530842beb0aa92e2c21d0ad190215"
             />
           </Template.Card>
-          <Template.Button>Adicionar Hábito</Template.Button>
+        </div>
+        <div className="BlocoConteudo">
+          <Template.Button>Quero me Cadastrar!</Template.Button>
         </div>
       </main>
     </Body>

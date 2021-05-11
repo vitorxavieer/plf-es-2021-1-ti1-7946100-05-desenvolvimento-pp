@@ -4,10 +4,14 @@ import * as Template from '../components/template';
 
 export const Body = styled.div`
   background-color: ${() => palheta.background};
+  color: ${() => palheta.text};
   padding: 20px;
   display: flex;
+  max-width: 600px;
+  margin: auto;
 
   .Navbar {
+    display: flex;
     justify-content: space-between;
     align-items: center;
   }
@@ -23,6 +27,17 @@ export const Body = styled.div`
   .Row {
     display: flex !important;
     justify-content: space-between;
+    align-items: center;
+  }
+
+  .Label1 {
+    display: flex;
+  }
+
+  .Submit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `;
 
@@ -35,14 +50,18 @@ function CadastroHabito() {
           <Template.Link>logout</Template.Link>
         </div>
         <main>
-          <h2>Cadastro de hábito</h2>
+          <Template.Header1 style={{ textAlign: 'center' }}>
+            Cadastro de hábito
+          </Template.Header1>
           <div className="Row">
-            <Template.Label>Nome do hábito</Template.Label>{' '}
-            <Template.Button>😉</Template.Button>
+            <div className="Label1">
+              <label>Nome do hábito*</label>
+              <Template.Emoji style={{ marginLeft: '10px' }}>😉</Template.Emoji>
+            </div>
             <Template.Input placeholder="Correr" disabled="" readOnly="true" />
           </div>
           <div className="Row">
-            <Template.Label>Ambiente</Template.Label>{' '}
+            <label>Ambiente</label>{' '}
             <Template.Input
               placeholder="Ruas do bairro"
               disabled=""
@@ -50,28 +69,30 @@ function CadastroHabito() {
             />
           </div>
           <div className="Row">
-            <Template.Label>Unidade</Template.Label>{' '}
+            <label>Unidade</label>{' '}
             <Template.Input placeholder="metros" disabled="" readOnly="true" />
           </div>
           <div className="Row">
-            <Template.Label>Periodicidade</Template.Label>{' '}
+            <label>Periodicidade</label>{' '}
             <Template.Input placeholder="Diária" disabled="" readOnly="true" />
           </div>
           <div className="Row">
-            <Template.Label>Horário</Template.Label>{' '}
+            <label>Horário</label>{' '}
             <Template.Input placeholder="18:30" disabled="" readOnly="true" />
           </div>
           <div className="Row">
-            <Template.Label>Recompensa por hábito</Template.Label>{' '}
+            <label>Recompensa por hábito</label>{' '}
             <Template.Input
               placeholder="Comer um chocolate"
               disabled=""
               readOnly="true"
             />
           </div>
+          <div className="Submit">
+            <Template.Button className="Button">Salvar hábito</Template.Button>
 
-          <Template.Button className="Button">Salvar hábito</Template.Button>
-          <Template.Link>Mais informação</Template.Link>
+            <Template.Link>Mais informação</Template.Link>
+          </div>
         </main>
       </div>
     </Body>
