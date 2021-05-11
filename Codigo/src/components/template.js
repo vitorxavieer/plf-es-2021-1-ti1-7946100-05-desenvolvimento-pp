@@ -17,6 +17,29 @@ export const Header1 = styled.h1`
   color: #000000;
 `;
 
+const NewInputDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const Linha = styled.div`
+  height: 2px;
+  width: 100px;
+  border: 1px solid #f5f5f5;
+  box-shadow: 10px 10px 20px #626262, -10px -10px 20px #ffffff;
+`;
+
+export function NewInputs(props) {
+  return (
+    <NewInputDiv>
+      <Body style={{ margin: '0px', padding: '0px 4px' }}>
+        {props.children}
+      </Body>
+      <Linha />
+    </NewInputDiv>
+  );
+}
+
 export const Header2 = styled.p`
   /* Header 2 */
 
@@ -33,6 +56,8 @@ export const Header2 = styled.p`
 
 export const Body = styled.div`
   background-color: ${() => palheta.background};
+  margin: auto;
+  max-width: 600px;
 
   font-family: Work Sans;
   font-style: normal;
@@ -40,9 +65,7 @@ export const Body = styled.div`
   font-size: 13px;
   line-height: 15px;
   letter-spacing: -0.02em;
-  color: #000000;
-
-  padding: 40px;
+  color: ${() => palheta.text};
 
   .PrimeiraParte {
     display: flex;
@@ -148,7 +171,7 @@ export const Label = styled.label`
   justify-content: flex-start;
   letter-spacing: -0.02em;
 
-  color: #000000;
+  color: rgba(0, 0, 0, 0.65);
 `;
 
 export const Input = styled.input`

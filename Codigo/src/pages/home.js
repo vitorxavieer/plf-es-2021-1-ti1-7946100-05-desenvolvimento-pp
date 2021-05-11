@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { palheta } from '../components/palheta';
 import * as Template from '../components/template';
+import { login } from '../utils/utils';
 
 export const Body = styled.div`
   background-color: ${() => palheta.background};
@@ -43,6 +45,8 @@ export const Img = styled.img`
 `;
 
 function Home() {
+  const [erros, setErros] = useState('');
+
   return (
     <Body className="container">
       <Navbar className="row">
@@ -60,7 +64,14 @@ function Home() {
             placeholder="senha"
             type="password"
           />
-          <Template.Button className="col-md-4">Login/Cadastro</Template.Button>
+          <Template.Button
+            onClick={() =>
+              login('octavio.rocha@sga.pucminas.br', '123456', setErros)
+            }
+            className="col-md-4"
+          >
+            Login/Cadastro
+          </Template.Button>
         </div>
       </Navbar>
       <main>
@@ -73,12 +84,7 @@ function Home() {
         </p>
         <div className="BlocoConteudo">
           <Template.Button className="Button">😉</Template.Button>{' '}
-          <Template.Input
-            className="Input"
-            placeholder="Correr"
-            disabled=""
-            readOnly="true"
-          />
+          <Template.NewInputs>Correr</Template.NewInputs>
         </div>
         <h2>2 - Acompanhe os hábitos</h2>
         <p>
