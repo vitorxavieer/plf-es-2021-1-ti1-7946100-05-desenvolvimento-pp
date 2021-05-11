@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { palheta } from './palheta';
 
 export const Header1 = styled.h1`
-  /* Header 1 */
   margin-bottom: 20px;
   margin-top: 20px;
   font-family: Work Sans;
@@ -10,10 +9,10 @@ export const Header1 = styled.h1`
   font-weight: bold;
   font-size: 34px;
   line-height: 40px;
-  /* identical to box height */
   letter-spacing: -0.02em;
+  text-align: center;
 
-  color: ${(props) => palheta.text};
+  color: ${() => palheta.text};
 `;
 
 const NewInputDiv = styled.div`
@@ -48,7 +47,6 @@ export function NewInputs(props) {
 }
 
 export const Header2 = styled.h2`
-  /* Header 2 */
   margin-top: 20px;
   margin-bottom: 20px;
 
@@ -60,8 +58,10 @@ export const Header2 = styled.h2`
 
   letter-spacing: -0.02em;
 
-  color: ${(props) => palheta.text};
+  color: ${() => palheta.text};
 `;
+
+export const Header3 = styled.h3``;
 
 export const Body = styled.div`
   background-color: ${() => palheta.background};
@@ -118,14 +118,13 @@ export const Link = styled.a`
 
   margin: 10px;
 
-  color: #000000;
+  color: ${() => palheta.text};
 `;
 
 export const Button = styled.button`
   /* Background */
-  background: ${(props) => palheta.background};
-  /* Drop shadow (dark) */
-  box-shadow: 5px 5px 10px #c3cad0, -5px -5px 10px #ffffff;
+  background: ${() => palheta.background};
+  box-shadow: ${() => palheta.boxDropShadow};
   border-radius: 5px;
   border: none;
 
@@ -143,20 +142,21 @@ export const Button = styled.button`
 
   /* Text - Important */
   color: ${() => palheta.textImportant};
+  :active {
+    box-shadow: 2px 2px 5px #c3cad0, -2px -2px 5px #ffffff;
+  }
 `;
 
 export const Emoji = styled.div`
   background: ${() => palheta.background};
-  /* Drop shadow (dark) */
-
-  height: 36px;
-  width: 36px;
-
-  display: grid;
-  place-items: center;
-
-  box-shadow: ${(props) => palheta.boxDropShadow};
+  box-shadow: ${() => palheta.boxDropShadow};
   border-radius: 15px;
+  width: 36px;
+  height: 36px;
+  margin: 10px;
+  text-align: center;
+  padding: 3px 3px 3px 5px;
+  font-size: 20px;
 `;
 
 export const Card = styled.div`
@@ -199,9 +199,8 @@ export const Input = styled.input`
   max-width: 200px;
   min-width: 50px;
 
-  background: ${(props) => palheta.background};
-  box-shadow: inset -2px -2px 4px rgba(255, 255, 255, 0.8),
-    inset 2px 2px 4px #c3cad0;
+  background: ${() => palheta.background};
+  box-shadow: ${() => palheta.boxInnerShadow};
 
   border-radius: 5px;
   /* Body */
@@ -213,7 +212,7 @@ export const Input = styled.input`
   letter-spacing: -0.02em;
   border: none;
 
-  color: #001f3f;
+  color: ${() => palheta.text};
 `;
 
 export const Logo = styled.h1`

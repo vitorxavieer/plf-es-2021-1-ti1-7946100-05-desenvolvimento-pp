@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import Test from './components/test';
 import './App.css';
 import { auth } from './config/firebase.config';
-import { BarraDeProgresso, Button } from './components/template';
 import Template from './components/template';
 import CadastroHabito from './pages/cadastroHabito';
 import HomeLogado from './pages/homeLogado';
@@ -33,28 +32,28 @@ function App() {
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          Dropdown button
+          Navegação pelas telas
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           <li>
             <a class="dropdown-item" onClick={() => setPagina(0)} href="#">
-              Home
+              Tela: Home
             </a>
           </li>
           <li>
             <a class="dropdown-item" onClick={() => setPagina(1)} href="#">
-              Home Logado
+              Tela: Home Logado
             </a>
           </li>
 
           <li>
             <a class="dropdown-item" onClick={() => setPagina(2)} href="#">
-              Cadastro de Hábitos
+              Tela: Cadastro de Hábitos
             </a>
           </li>
           <li>
             <a class="dropdown-item" onClick={() => setPagina(3)} href="#">
-              Template
+              Template Components
             </a>
           </li>
         </ul>

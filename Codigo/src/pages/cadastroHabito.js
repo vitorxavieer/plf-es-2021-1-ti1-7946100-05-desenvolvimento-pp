@@ -21,9 +21,6 @@ export const Body = styled.div`
     padding: 5px 10px;
   }
 
-  .Input::-webkit-input-placeholder {
-    color: #000;
-  }
   .Row {
     display: flex !important;
     justify-content: space-between;

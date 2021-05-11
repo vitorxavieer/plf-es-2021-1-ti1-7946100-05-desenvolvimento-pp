@@ -86,10 +86,10 @@ function Home() {
         </Template.Header1>
         <Template.Header2>1 - Cadastre um hábito</Template.Header2>
 
-        <p>
+        <Template.Body>
           Cadastre hábitos pequenos, que se tornarão em precessos, e vão
           construir uma nova identidade
-        </p>
+        </Template.Body>
         <div className="BlocoConteudo">
           <Template.Emoji className="Button">😉</Template.Emoji>
           <div className="NewInputs">
@@ -97,9 +97,9 @@ function Home() {
           </div>
         </div>
         <Template.Header2>2 - Acompanhe os hábitos</Template.Header2>
-        <p>
+        <Template.Body>
           Veja uma lista atualizada diariamente com os hábitos a serem feitos
-        </p>
+        </Template.Body>
         <div className="BlocoConteudo">
           <div className="NewInputs">
             <Template.NewInputs>
@@ -111,9 +111,9 @@ function Home() {
           </div>
         </div>
         <Template.Header2>3 - Veja o seu progresso</Template.Header2>
-        <p>
+        <Template.Body>
           Tenha o seu desenvolvimento registrado e acessível a qualquer momento
-        </p>
+        </Template.Body>
         <div className="BlocoConteudo">
           <Template.Card>
             <img
