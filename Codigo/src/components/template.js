@@ -15,37 +15,6 @@ export const Header1 = styled.h1`
   color: ${() => palheta.text};
 `;
 
-const NewInputDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const Linha = styled.div`
-  height: 2px;
-  max-width: 400px;
-  min-width: 100px;
-  border: 1px solid #f5f5f5;
-  box-shadow: 10px 10px 20px #626262, -10px -10px 20px #ffffff;
-`;
-
-export function NewInputs(props) {
-  return (
-    <NewInputDiv>
-      <Body
-        style={{
-          margin: '0px',
-          padding: '0px 4px',
-          fontSize: '16px',
-          fontWeight: '500',
-        }}
-      >
-        {props.children}
-      </Body>
-      <Linha />
-    </NewInputDiv>
-  );
-}
-
 export const Header2 = styled.h2`
   margin-top: 20px;
   margin-bottom: 20px;
@@ -55,7 +24,6 @@ export const Header2 = styled.h2`
   font-weight: bold;
   font-size: 24px;
   line-height: 23px;
-
   letter-spacing: -0.02em;
 
   color: ${() => palheta.text};
@@ -64,11 +32,6 @@ export const Header2 = styled.h2`
 export const Header3 = styled.h3``;
 
 export const Body = styled.div`
-  background-color: ${() => palheta.background};
-  margin: auto;
-  max-width: 600px;
-  padding: 20px;
-
   font-family: Work Sans;
   font-style: normal;
   font-weight: normal;
@@ -76,33 +39,40 @@ export const Body = styled.div`
   line-height: 15px;
   letter-spacing: -0.02em;
   color: ${() => palheta.text};
+`;
 
-  .PrimeiraParte .Tipography {
+const BodyDiv = styled.div`
+  background-color: ${() => palheta.background};
+  margin: auto;
+  max-width: 700px;
+  height: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  .Header1,
+  .colors-parte {
+    grid-column: 1 / 5;
   }
-
-  .PrimeiraParte .Components {
+  .Tipography {
+    text-align: center;
+    grid-column: 1 / 3;
   }
-
+  .Components {
+    grid-column: 3 / 5;
+  }
   .PrimeiraParte .Label-Logo-Progress {
   }
-
   .Inputs {
     display: flex;
   }
-
   .Logo-Emoji {
     display: flex;
     align-items: center;
   }
-
-  .Colors {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
   .Colors div {
     margin-right: 40px;
     margin-bottom: 40px;
+    display: inline-block;
   }
 `;
 
@@ -215,6 +185,61 @@ export const Input = styled.input`
   color: ${() => palheta.text};
 `;
 
+const TextoDestaqueDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+`;
+
+export const Linha = styled.div`
+  height: 1px;
+  max-width: 400px;
+  min-width: 60px;
+  margin-top: 4px;
+  border: 0.1px solid ${() => palheta.background};
+  /*   box-shadow: 10px 10px 20px #626262, -10px -10px 20px #ffffff;
+ */
+  filter: drop-shadow(1px 4px 6px black);
+`;
+
+export function TextoDestaque(props) {
+  return (
+    <TextoDestaqueDiv>
+      <Body
+        style={{
+          margin: '0px',
+          padding: '0 8px',
+          fontSize: '16px',
+          fontWeight: '500',
+        }}
+      >
+        {props.children}
+      </Body>
+      <Linha />
+    </TextoDestaqueDiv>
+  );
+}
+
+export function NewInputs(props) {
+  return (
+    <div style={{ margin: '10px', maxWidth: '180px' }}>
+      <input
+        style={{
+          margin: '0px 10px -12px 0px',
+          maxWidth: '180px',
+          width: '100%',
+          paddingLeft: '6px',
+          border: 'none',
+          background: palheta.background,
+          color: palheta.text,
+        }}
+        placeholder={props.placeholder}
+      />
+      <Linha />
+    </div>
+  );
+}
+
 export const Logo = styled.h1`
   font-family: Work Sans;
   font-style: normal;
@@ -228,8 +253,11 @@ export const Logo = styled.h1`
 `;
 
 export const BarraDeProgresso = styled.div`
-  width: 241px;
+  max-width: 240px;
+  width: 100%;
+  min-width: 120px;
   height: 30px;
+  margin-left: 20px;
 
   /* Rectangle 17 */
   background: linear-gradient(
@@ -259,7 +287,7 @@ const Quadrado2 = styled.div`
   border-radius: 10px;
 `;
 
-function Template() {
+/* function Template() {
   return (
     <Body className="container" style={{ maxWidth: '1000px' }}>
       <Header1>Template</Header1>
@@ -272,6 +300,7 @@ function Template() {
         </div>
         <div className="Components col-6 col-xs-6 col-sm-6 col-md-4">
           <Header2>Components</Header2>
+          <NewInput2 />
           <Button>button</Button>
           <Card>
             <h3>Card Style</h3>
@@ -303,6 +332,53 @@ function Template() {
         <Quadrado2 color={palheta.text} />
       </div>
     </Body>
+  );
+} */
+
+function Template() {
+  return (
+    <BodyDiv className="container">
+      <Header1 className="Header1">Template</Header1>
+      <div className="Tipography">
+        <Header2>Tipography</Header2>
+        <Header1>Header 1</Header1>
+        <Header2>Header 2</Header2>
+        <Body>Body - Lore ipsum</Body>
+        <Link>link</Link>
+      </div>
+      <div className="Components">
+        <Header2>Components</Header2>
+        <Button>button</Button>
+        <Card>
+          <h3>Card Style</h3>
+        </Card>
+        <Label>Label</Label>
+        <div className="Inputs">
+          <Input
+            placeholder="input"
+            style={{ marginLeft: '0px', width: '120px' }}
+          />
+          <TextoDestaque>Correr</TextoDestaque>
+        </div>
+        <div className="Logo-Emoji">
+          <Logo>1%</Logo>
+          <Emoji style={{ margin: '20px' }}>😉</Emoji>
+        </div>
+        <NewInputs placeholder="Input Alternativo" />
+        <BarraDeProgresso valor={72} />
+      </div>
+      <div className="colors-parte">
+        <Header2>Colors</Header2>
+        <div className="Colors">
+          <Quadrado2 color={palheta.background} />
+          <Quadrado2 color={palheta.darkShadow} />
+          <Quadrado2 color={palheta.lightShadow} />
+          <Quadrado2 color={palheta.textImportant} />
+          <Quadrado2 color={palheta.logo} />
+          <Quadrado2 color={palheta.text} />
+        </div>
+      </div>
+    </BodyDiv>
   );
 }
 

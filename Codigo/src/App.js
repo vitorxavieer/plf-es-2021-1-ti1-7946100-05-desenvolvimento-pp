@@ -1,16 +1,27 @@
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import Test from './components/test';
-import './App.css';
 import { auth } from './config/firebase.config';
 import Template from './components/template';
 import CadastroHabito from './pages/cadastroHabito';
 import HomeLogado from './pages/homeLogado';
 import Home from './pages/home';
+import BarraSuperior from './pages/BarraSuperior';
+
+const Telas = ['Home', 'HomeLogado', 'Cadastro de Hábitos', 'Template'];
+const dropdownTitulo = 'Navegação pelas telas: ';
+
+const AppDiv = styled.div`
+  min-height: 100vh;
+  background-color: #e5e5e5;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+`;
 
 function App() {
   const [pagina, setPagina] = useState(0);
   const [user, setUser] = useState('');
-
+  const [navegacao, setNavegacao] = useState(dropdownTitulo);
   useEffect(() => {
     const unlisten = auth.onAuthStateChanged((authUser) => {
       authUser ? setUser(authUser) : setUser(null);
@@ -19,11 +30,11 @@ function App() {
       unlisten();
     };
   });
-
+  useEffect(() => setNavegacao(dropdownTitulo + Telas[pagina]), [pagina]);
   console.log('user', user);
 
   return (
-    <div className="App">
+    <AppDiv>
       <div class="dropdown">
         <button
           class="btn btn-secondary dropdown-toggle"
@@ -32,32 +43,19 @@ function App() {
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          Navegação pelas telas
+          {navegacao}
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li>
-            <a class="dropdown-item" onClick={() => setPagina(0)} href="#">
-              Tela: Home
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item" onClick={() => setPagina(1)} href="#">
-              Tela: Home Logado
-            </a>
-          </li>
-
-          <li>
-            <a class="dropdown-item" onClick={() => setPagina(2)} href="#">
-              Tela: Cadastro de Hábitos
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item" onClick={() => setPagina(3)} href="#">
-              Template Components
-            </a>
-          </li>
+          {Telas.map((e, i) => (
+            <li key={i}>
+              <a class="dropdown-item" onClick={() => setPagina(i)} href="#">
+                {e}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
+      <BarraSuperior user={user != null ? user.uid : null} />
       {/* <Test /> */}
       {pagina == 0 && <Home />}
       {pagina == 1 && <HomeLogado />}
@@ -66,7 +64,7 @@ function App() {
       {/* <Button onClick={() => setPagina(pagina == 3 ? 0 : pagina + 1)}>
         Cadastrar {pagina}
       </Button> */}
-    </div>
+    </AppDiv>
   );
 }
 

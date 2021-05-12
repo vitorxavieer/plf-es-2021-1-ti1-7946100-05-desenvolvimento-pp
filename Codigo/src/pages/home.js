@@ -4,9 +4,10 @@ import { palheta } from '../components/palheta';
 import * as Template from '../components/template';
 import { login } from '../utils/utils';
 
-export const Body = styled.div`
+export const BodyPage = styled.div`
   background-color: ${() => palheta.background};
-  padding: 30px;
+  padding: 20px;
+  min-height: 100%;
   max-width: 600px;
   margin: auto;
 
@@ -14,7 +15,8 @@ export const Body = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
+    margin: 30px 0px;
+    flex-wrap: wrap;
   }
 
   .Button {
@@ -26,7 +28,7 @@ export const Body = styled.div`
     margin: 10px;
   }
 
-  .ImgButton {
+  .ImgCard {
     height: 80px;
     width: auto;
     object-fit: fill;
@@ -51,35 +53,7 @@ function Home() {
   const [erros, setErros] = useState('');
 
   return (
-    <Body className="container">
-      <Navbar className="row">
-        <Template.Logo className="col-xs-12 col-sm-1 col-md-1">
-          1%
-        </Template.Logo>
-        <div className="col-xs-12 col-sm-11 col-md-11">
-          <Template.Input
-            style={{ maxWidth: '120px' }}
-            className="col-md-4"
-            placeholder="email"
-            type="email"
-          />
-          <Template.Input
-            style={{ maxWidth: '120px' }}
-            className="col-md-4"
-            placeholder="senha"
-            type="password"
-          />
-          <Template.Button
-            style={{ maxWidth: '160px', minWidth: '110px', width: '25%' }}
-            onClick={() =>
-              login('octavio.rocha@sga.pucminas.br', '123456', setErros)
-            }
-            className="col-md-4"
-          >
-            Login/Cadastro
-          </Template.Button>
-        </div>
-      </Navbar>
+    <BodyPage className="container">
       <main>
         <Template.Header1 style={{ textAlign: 'center' }}>
           Como funciona?
@@ -91,9 +65,9 @@ function Home() {
           construir uma nova identidade
         </Template.Body>
         <div className="BlocoConteudo">
-          <Template.Emoji className="Button">😉</Template.Emoji>
+          <Template.Emoji>🏃🏻‍♂️</Template.Emoji>
           <div className="NewInputs">
-            <Template.NewInputs>Correr</Template.NewInputs>
+            <Template.TextoDestaque>Correr</Template.TextoDestaque>
           </div>
         </div>
         <Template.Header2>2 - Acompanhe os hábitos</Template.Header2>
@@ -102,12 +76,14 @@ function Home() {
         </Template.Body>
         <div className="BlocoConteudo">
           <div className="NewInputs">
-            <Template.NewInputs>
+            <Template.TextoDestaque>
               Correr 5km 2 vezes por semana
-            </Template.NewInputs>
+            </Template.TextoDestaque>
           </div>
           <div className="NewInputs">
-            <Template.NewInputs>Ler 10 páginas por dia</Template.NewInputs>
+            <Template.TextoDestaque>
+              Ler 10 páginas por dia
+            </Template.TextoDestaque>
           </div>
         </div>
         <Template.Header2>3 - Veja o seu progresso</Template.Header2>
@@ -115,9 +91,9 @@ function Home() {
           Tenha o seu desenvolvimento registrado e acessível a qualquer momento
         </Template.Body>
         <div className="BlocoConteudo">
-          <Template.Card>
+          <Template.Card style={{ marginTop: '20px' }}>
             <img
-              className="ImgButton"
+              className="ImgCard"
               src="https://www.flaticon.com/svg/vstatic/svg/558/558385.svg?token=exp=1620653177~hmac=684530842beb0aa92e2c21d0ad190215"
             />
           </Template.Card>
@@ -126,7 +102,7 @@ function Home() {
           <Template.Button>Quero me Cadastrar!</Template.Button>
         </div>
       </main>
-    </Body>
+    </BodyPage>
   );
 }
 
