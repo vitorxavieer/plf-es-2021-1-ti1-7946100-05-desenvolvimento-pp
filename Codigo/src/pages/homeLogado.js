@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import { palheta } from '../components/palheta';
 import * as Template from '../components/template';
 
-export const Body = styled.div`
+export const BodyPage = styled.div`
   background-color: ${() => palheta.background};
-  padding: 20px;
+  padding: 30px;
+  min-height: 100%;
   max-width: 600px;
   margin: auto;
 
@@ -30,11 +31,12 @@ export const Body = styled.div`
 
   .fa {
     margin: 0 10px;
+    cursor: pointer;
   }
 
   .CheckButton {
-    height: 26px;
-    width: 24px;
+    height: 32px;
+    width: 32px;
     margin: 0;
     margin-left: 10px;
     padding: 4px;
@@ -50,7 +52,7 @@ export const Body = styled.div`
   }
 
   .End {
-    margin: 40px;
+    margin: 30px;
   }
 
   .Progresso {
@@ -81,67 +83,51 @@ export const Img = styled.img`
   width: auto;
 `;
 
+function HabitoLinha(props) {
+  return (
+    <section className="Habito">
+      <Template.Emoji>{props.emoji}</Template.Emoji>
+      <div className="NewInputs">
+        <Template.TextoDestaque>
+          <div className="Contador">
+            <txt>{props.nome}</txt>
+            <i className="fa fa-minus"></i>
+            {props.valor} {props.unidade}
+            <i className="fa fa-plus"></i>
+            <i className="fa fa-history"></i>
+            <i className="fa fa-trash"></i>
+          </div>
+        </Template.TextoDestaque>
+      </div>
+      <Template.Button className="CheckButton">
+        <i className="fa fa-check" style={{ fontSize: '24px' }}></i>
+      </Template.Button>
+    </section>
+  );
+}
+
+const Habitos = [
+  { valor: 5, unidade: 'Km', nome: 'Correr', emoji: '🏃🏻‍♂️' },
+  { valor: 20, unidade: 'Pg', nome: 'Ler', emoji: '📚' },
+  { valor: 2, unidade: 'Hr', nome: 'Estudar', emoji: '📝' },
+];
+
 function HomeLogado() {
   return (
-    <Body className="container">
-      <Navbar>
-        <Template.Logo>1%</Template.Logo>
-        <Template.Link>logout</Template.Link>
-      </Navbar>
+    <BodyPage className="container">
       <main>
         <Template.Header1 className="Headers">Hábitos de Hoje</Template.Header1>
 
-        <section className="Habito">
-          <Template.Emoji>🏃🏻‍♂️</Template.Emoji>
-          <div className="NewInputs">
-            <Template.NewInputs>
-              <div className="Contador">
-                <txt>Correr</txt>
-                <i className="fa fa-minus"></i>5 Km
-                <i className="fa fa-plus"></i>
-                <i className="fa fa-history"></i>
-                <i className="fa fa-trash"></i>
-              </div>
-            </Template.NewInputs>
-          </div>
-          <Template.Button className="CheckButton">
-            <i className="fa fa-check"></i>
-          </Template.Button>
-        </section>
-        <section className="Habito">
-          <Template.Emoji>📚</Template.Emoji>
-          <div className="NewInputs">
-            <Template.NewInputs>
-              <div className="Contador">
-                <txt>Ler</txt>
-                <i className="fa fa-minus"></i>20 pg
-                <i className="fa fa-plus"></i>
-                <i className="fa fa-history"></i>
-                <i className="fa fa-trash"></i>
-              </div>
-            </Template.NewInputs>
-          </div>
-          <Template.Button className="CheckButton">
-            <i className="fa fa-check"></i>
-          </Template.Button>
-        </section>
-        <section className="Habito">
-          <Template.Emoji>📝</Template.Emoji>
-          <div className="NewInputs">
-            <Template.NewInputs>
-              <div className="Contador">
-                <txt>Estudar</txt>
-                <i className="fa fa-minus"></i>2 hr
-                <i className="fa fa-plus"></i>
-                <i className="fa fa-history"></i>
-                <i className="fa fa-trash"></i>
-              </div>
-            </Template.NewInputs>
-          </div>
-          <Template.Button className="CheckButton">
-            <i className="fa fa-check"></i>
-          </Template.Button>
-        </section>
+        {Habitos.map((e, i) => (
+          <HabitoLinha
+            key={i}
+            valor={e.valor}
+            unidade={e.unidade}
+            nome={e.nome}
+            emoji={e.emoji}
+          />
+        ))}
+
         <section className="End">
           <div className="Progresso" style={{ marginTop: '80px' }}>
             <h4 className="Headers">Hoje</h4>
@@ -160,7 +146,7 @@ function HomeLogado() {
           </div>
         </section>
       </main>
-    </Body>
+    </BodyPage>
   );
 }
 
