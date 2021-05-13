@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/plf-es-2021-1-ti1-7946100-05-desenvolvimento-pp/static/css/main.6dea0f05.chunk.css",
+    "main.js": "/plf-es-2021-1-ti1-7946100-05-desenvolvimento-pp/static/js/main.cb4a65f6.chunk.js",
+    "main.js.map": "/plf-es-2021-1-ti1-7946100-05-desenvolvimento-pp/static/js/main.cb4a65f6.chunk.js.map",
+    "runtime-main.js": "/plf-es-2021-1-ti1-7946100-05-desenvolvimento-pp/static/js/runtime-main.78864752.js",
+    "runtime-main.js.map": "/plf-es-2021-1-ti1-7946100-05-desenvolvimento-pp/static/js/runtime-main.78864752.js.map",
+    "static/js/2.1fd2bac8.chunk.js": "/plf-es-2021-1-ti1-7946100-05-desenvolvimento-pp/static/js/2.1fd2bac8.chunk.js",
+    "static/js/2.1fd2bac8.chunk.js.map": "/plf-es-2021-1-ti1-7946100-05-desenvolvimento-pp/static/js/2.1fd2bac8.chunk.js.map",
+    "static/js/3.3c3a3eb5.chunk.js": "/plf-es-2021-1-ti1-7946100-05-desenvolvimento-pp/static/js/3.3c3a3eb5.chunk.js",
+    "static/js/3.3c3a3eb5.chunk.js.map": "/plf-es-2021-1-ti1-7946100-05-desenvolvimento-pp/static/js/3.3c3a3eb5.chunk.js.map",
+    "index.html": "/plf-es-2021-1-ti1-7946100-05-desenvolvimento-pp/index.html",
+    "static/css/main.6dea0f05.chunk.css.map": "/plf-es-2021-1-ti1-7946100-05-desenvolvimento-pp/static/css/main.6dea0f05.chunk.css.map",
+    "static/js/2.1fd2bac8.chunk.js.LICENSE.txt": "/plf-es-2021-1-ti1-7946100-05-desenvolvimento-pp/static/js/2.1fd2bac8.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.78864752.js",
+    "static/js/2.1fd2bac8.chunk.js",
+    "static/css/main.6dea0f05.chunk.css",
+    "static/js/main.cb4a65f6.chunk.js"
+  ]
+}
