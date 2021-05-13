@@ -22,7 +22,7 @@ export const BodyPage = styled.div`
   }
 
   .Contador txt {
-    padding-right: 16px;
+    padding-right: 8px;
   }
 
   .Contador {
@@ -70,6 +70,27 @@ export const BodyPage = styled.div`
     display: grid;
     place-items: center;
   }
+
+  @media (max-width: 440px) {
+    padding: 20px;
+
+    .Emoji {
+      margin-left: 0px;
+      margin-right: 5px;
+    }
+
+    .Contador txt {
+      padding-right: 0px;
+    }
+
+    .fa {
+      margin: 0 8px;
+    }
+
+    .CheckButton {
+      margin-right: -4px;
+    }
+  }
 `;
 
 export const Navbar = styled.nav`
@@ -77,16 +98,10 @@ export const Navbar = styled.nav`
   justify-content: space-between;
 `;
 
-export const Img = styled.img`
-  object-fit: cover;
-  height: 100px;
-  width: auto;
-`;
-
 function HabitoLinha(props) {
   return (
     <section className="Habito">
-      <Template.Emoji>{props.emoji}</Template.Emoji>
+      <Template.Emoji className="Emoji">{props.emoji}</Template.Emoji>
       <div className="NewInputs">
         <Template.TextoDestaque>
           <div className="Contador">

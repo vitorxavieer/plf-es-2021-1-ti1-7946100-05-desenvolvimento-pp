@@ -1,13 +1,123 @@
 import styled from 'styled-components';
+import { useEffect, useState, useRef } from 'react';
 import { palheta } from '../components/palheta';
 import * as Template from '../components/template';
+
+function FormCadastroHabito(props) {
+  return (
+    <div className="Row">
+      <div className="Label">
+        <label>{props.label}</label>
+      </div>
+      <Template.NewInputs placeholder={props.placeholder} />
+    </div>
+  );
+}
+
+const FormHabitos = [
+  { label: 'Nome do hábito*', placeholder: 'Correr' },
+  { label: 'Ambiente', placeholder: 'Rua do Bairro' },
+  { label: 'Unidade', placeholder: 'Metros' },
+  { label: 'Periodicidade', placeholder: 'Diária' },
+  { label: 'Horário', placeholder: '18:30' },
+  {
+    label: 'Recompensa por hábito',
+    placeholder: 'Comer um chocolate',
+  },
+];
+
+const EmojiButtonStyled = styled.div`
+  ul.dropdown-menu.show {
+    max-height: 300px;
+    overflow: auto;
+    width: 220px;
+  }
+  li,
+  a {
+    display: inline-block;
+  }
+
+  #dropdownMenuButton1 {
+    :active {
+      box-shadow: 2px 2px 5px #c3cad0, -2px -2px 5px #ffffff;
+    }
+  }
+`;
+
+const emojiRange = [
+  [128513, 128591],
+  [9986, 10160],
+  [128640, 128704],
+];
+
+export function EmojiButton(props) {
+  const [emoji, setEmoji] = useState(props.emoji || '&#128521');
+  const ulRef = useRef(null);
+  const divRef = useRef(null);
+
+  let emojiRange2 = [];
+
+  for (var i = 0; i < emojiRange.length; i++) {
+    var range = emojiRange[i];
+    for (var x = range[0]; x < range[1]; x++) {
+      emojiRange2.push(x);
+    }
+  }
+
+  useEffect(() => {
+    if (ulRef.current) {
+      emojiRange2.map((e, i) => {
+        document.getElementById('emoji-' + i).innerHTML = '&#' + e;
+      });
+    }
+  }, [ulRef.current]);
+
+  useEffect(() => {
+    if (divRef.current) divRef.current.innerHTML = emoji;
+  }, [emoji]);
+
+  return (
+    <EmojiButtonStyled className="dropdown">
+      <Template.Button
+        className="dropdown-toggle EmojiButton"
+        type="button"
+        id="dropdownMenuButton1"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        ref={divRef}
+      >
+        😉
+        {/* // </EmojiButtonStyled> */}
+      </Template.Button>
+      <ul
+        ref={ulRef}
+        class="dropdown-menu"
+        aria-labelledby="dropdownMenuButton1"
+      >
+        {emojiRange2.map((e, i) => (
+          <li key={i}>
+            <a
+              class="dropdown-item"
+              id={'emoji-' + i}
+              onClick={() => {
+                setEmoji('&#' + e);
+              }}
+              href="#"
+            >
+              {'&#' + e + ''}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </EmojiButtonStyled>
+  );
+}
 
 export const BodyPage = styled.div`
   background-color: ${() => palheta.background};
   color: ${() => palheta.text};
   padding: 20px;
   display: flex;
-  padding: 0px 30px;
   max-width: 600px;
   width: 100%;
   margin: auto;
@@ -22,18 +132,20 @@ export const BodyPage = styled.div`
     align-items: center;
   }
 
-  .Button {
-    margin: 10px;
-    padding: 5px 10px;
-  }
-
   .Row {
     display: flex !important;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 16px;
   }
 
   .Label1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .Label {
     display: flex;
     align-items: center;
   }
@@ -42,6 +154,10 @@ export const BodyPage = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .EmojiButton {
+    padding: 8px;
   }
 `;
 
@@ -52,56 +168,24 @@ function CadastroHabito() {
         Cadastro de hábito
       </Template.Header1>
       <div className="Row">
-        <div className="Label1">
-          <label>Nome do hábito*</label>
-          <Template.Emoji style={{ marginLeft: '10px' }}>😉</Template.Emoji>
+        <div className="Label">
+          <label>Hábito/Emoji*</label>
         </div>
-        <Template.NewInputs
-          placeholder="Ex: Correr"
-          disabled=""
-          readOnly="true"
-        />
+        <div className="Label1">
+          <EmojiButton />
+          <Template.NewInputs placeholder="Correr" />
+        </div>
       </div>
-      <div className="Row">
-        <label>Ambiente</label>{' '}
-        <Template.NewInputs
-          placeholder="Ex: Ruas do bairro"
-          disabled=""
-          readOnly="true"
+
+      {FormHabitos.map((e, i) => (
+        <FormCadastroHabito
+          key={i}
+          label={e.label}
+          emoji={e.emoji}
+          placeholder={e.placeholder}
         />
-      </div>
-      <div className="Row">
-        <label>Unidade</label>{' '}
-        <Template.NewInputs
-          placeholder="Ex: metros"
-          disabled=""
-          readOnly="true"
-        />
-      </div>
-      <div className="Row">
-        <label>Periodicidade</label>{' '}
-        <Template.NewInputs
-          placeholder="Ex: Diária"
-          disabled=""
-          readOnly="true"
-        />
-      </div>
-      <div className="Row">
-        <label>Horário</label>{' '}
-        <Template.NewInputs
-          placeholder="Ex: 18:30"
-          disabled=""
-          readOnly="true"
-        />
-      </div>
-      <div className="Row">
-        <label>Recompensa por hábito</label>{' '}
-        <Template.NewInputs
-          placeholder="Ex: Comer um chocolate"
-          disabled=""
-          readOnly="true"
-        />
-      </div>
+      ))}
+
       <div className="Submit">
         <Template.Button className="Button">Salvar hábito</Template.Button>
 

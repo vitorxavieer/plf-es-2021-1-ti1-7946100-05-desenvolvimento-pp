@@ -98,15 +98,15 @@ export const Button = styled.button`
   border-radius: 5px;
   border: none;
 
-  margin: 10px;
-  padding: 8px 8px;
+  margin: 20px;
+  padding: 16px;
   max-width: 400px;
 
   /* Body */
   font-family: Work Sans;
   font-style: normal;
   font-weight: normal;
-  font-size: 13px;
+  font-size: 18px;
   line-height: 15px;
   letter-spacing: -0.02em;
 
@@ -124,7 +124,8 @@ export const Emoji = styled.div`
   width: 36px;
   height: 36px;
   margin: 10px;
-  text-align: center;
+  display: grid;
+  place-items: center;
   padding: 3px 3px 3px 5px;
   font-size: 20px;
 `;
@@ -183,6 +184,8 @@ export const Input = styled.input`
   border: none;
 
   color: ${() => palheta.text};
+
+  -webkit-appearance: none;
 `;
 
 const TextoDestaqueDiv = styled.div`
@@ -228,12 +231,13 @@ export function NewInputs(props) {
           margin: '0px 10px -12px 0px',
           maxWidth: '180px',
           width: '100%',
-          paddingLeft: '6px',
+          paddingLeft: '8px',
           border: 'none',
           background: palheta.background,
           color: palheta.text,
         }}
         placeholder={props.placeholder}
+        type
       />
       <Linha />
     </div>
