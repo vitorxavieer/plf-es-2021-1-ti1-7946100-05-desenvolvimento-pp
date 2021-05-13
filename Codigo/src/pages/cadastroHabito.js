@@ -9,20 +9,41 @@ function FormCadastroHabito(props) {
       <div className="Label">
         <label>{props.label}</label>
       </div>
-      <Template.NewInputs placeholder={props.placeholder} />
+      <Template.NewInputs
+        type={props.type}
+        placeholder={props.placeholder}
+        required={props.required}
+      />
     </div>
   );
 }
 
 const FormHabitos = [
-  { label: 'Nome do hábito*', placeholder: 'Correr' },
-  { label: 'Ambiente', placeholder: 'Rua do Bairro' },
-  { label: 'Unidade', placeholder: 'Metros' },
-  { label: 'Periodicidade', placeholder: 'Diária' },
-  { label: 'Horário', placeholder: '18:30' },
+  {
+    label: 'Meta ideal*',
+    type: 'text',
+    placeholder: '4 ',
+    required: 'required',
+  },
+  { label: 'Unidade', type: 'number', placeholder: 'Km', required: '' },
+  {
+    label: 'Periodicidade*',
+    type: 'text',
+    placeholder: 'Diária',
+    required: 'required',
+  },
+  {
+    label: 'Horário*',
+    type: 'time',
+    placeholder: '18:30',
+    required: 'required',
+  },
+  { label: 'Local', type: 'text', placeholder: 'Ruas do Bairro', required: '' },
   {
     label: 'Recompensa por hábito',
+    type: 'text',
     placeholder: 'Comer um chocolate',
+    required: '',
   },
 ];
 
@@ -173,7 +194,7 @@ function CadastroHabito() {
         </div>
         <div className="Label1">
           <EmojiButton />
-          <Template.NewInputs placeholder="Correr" />
+          <Template.NewInputs placeholder="Correr" type="text" />
         </div>
       </div>
 
@@ -182,7 +203,9 @@ function CadastroHabito() {
           key={i}
           label={e.label}
           emoji={e.emoji}
+          type={e.type}
           placeholder={e.placeholder}
+          required={e.required}
         />
       ))}
 

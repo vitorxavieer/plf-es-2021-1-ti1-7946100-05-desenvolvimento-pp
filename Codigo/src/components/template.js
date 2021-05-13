@@ -236,8 +236,9 @@ export function NewInputs(props) {
           background: palheta.background,
           color: palheta.text,
         }}
+        type={props.type}
         placeholder={props.placeholder}
-        type
+        required={props.required}
       />
       <Linha />
     </div>
@@ -290,54 +291,6 @@ const Quadrado2 = styled.div`
   box-sizing: border-box;
   border-radius: 10px;
 `;
-
-/* function Template() {
-  return (
-    <Body className="container" style={{ maxWidth: '1000px' }}>
-      <Header1>Template</Header1>
-      <div className="PrimeiraParte row">
-        <div className="Tipography col-6 col-xs-6 col-sm-6 col-md-4">
-          <Header2>Tipography</Header2>
-          <Header1>Header 1</Header1>
-          <Header2>Header 2</Header2>
-          <Link>link</Link>
-        </div>
-        <div className="Components col-6 col-xs-6 col-sm-6 col-md-4">
-          <Header2>Components</Header2>
-          <NewInput2 />
-          <Button>button</Button>
-          <Card>
-            <h3>Card Style</h3>
-          </Card>
-        </div>
-        <div className="Label-Logo-Progress col-12 col-xs-12 col-sm-12 col-md-4">
-          <Label>Label</Label>
-          <div className="Inputs">
-            <Input
-              placeholder="input"
-              style={{ marginLeft: '0px', width: '120px' }}
-            />
-            <NewInputs>Correr</NewInputs>
-          </div>
-          <div className="Logo-Emoji">
-            <Logo>1%</Logo>
-            <Emoji style={{ margin: '20px' }}>😉</Emoji>
-          </div>
-          <BarraDeProgresso valor={72} />
-        </div>
-      </div>
-      <Header2>Colors</Header2>
-      <div className="Colors">
-        <Quadrado2 color={palheta.background} />
-        <Quadrado2 color={palheta.darkShadow} />
-        <Quadrado2 color={palheta.lightShadow} />
-        <Quadrado2 color={palheta.textImportant} />
-        <Quadrado2 color={palheta.logo} />
-        <Quadrado2 color={palheta.text} />
-      </div>
-    </Body>
-  );
-} */
 
 function Template() {
   return (
