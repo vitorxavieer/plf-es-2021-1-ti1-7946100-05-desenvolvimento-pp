@@ -26,9 +26,11 @@ jobs:
 
     - name: Install dependencies
       run: npm install
+      working-directory: Codigo
 
     - name: Build
       run: npm run build
+      working-directory: Codigo
       
     - name: Deploy
       run: |
@@ -41,3 +43,4 @@ jobs:
         user_email: 'github-actions[bot]@users.noreply.github.com'
         github_token: ${{ secrets.ACTIONS_DEPLOY }}
         repository: ${{ github.repository }}
+      working-directory: Codigo
