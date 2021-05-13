@@ -24,6 +24,7 @@ const Navbar = styled.nav`
     width: 72px;
     object-fit: cover;
     margin-left: 16px;
+    cursor: pointer;
   }
   .link-header {
     padding: 0px 0px;
@@ -37,7 +38,7 @@ function BarraSuperior(props) {
   const [erros, setErros] = useState('');
   return (
     <Navbar>
-      <img className="Logo" src={LogoTIAW} />
+      <img className="Logo" src={LogoTIAW} onClick={() => props.setPagina(0)} />
       {!props.user && (
         <div>
           <Template.Input

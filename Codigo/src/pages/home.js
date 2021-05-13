@@ -36,6 +36,11 @@ export const BodyPage = styled.div`
     width: auto;
     object-fit: fill;
   }
+
+  .Link {
+    display: grid;
+    place-items: center;
+  }
 `;
 
 export const Navbar = styled.nav`
@@ -52,7 +57,7 @@ export const Img = styled.img`
   width: auto;
 `;
 
-function Home() {
+function Home(props) {
   const [erros, setErros] = useState('');
 
   return (
@@ -100,6 +105,11 @@ function Home() {
         </div>
         <div className="BlocoConteudo">
           <Template.Button>Quero me Cadastrar!</Template.Button>
+        </div>
+        <div className="Link">
+          <Template.Link onClick={() => props.setPagina(3)}>
+            Template
+          </Template.Link>
         </div>
       </main>
     </BodyPage>

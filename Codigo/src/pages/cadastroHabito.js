@@ -352,7 +352,11 @@ class CadastroHabito extends Component {
             />
           </div>
           <div className="Submit">
-            <Template.Button type="submit" className="Button">
+            <Template.Button
+              type="submit"
+              className="Button"
+              onClick={() => this.props.setPagina(1)}
+            >
               Salvar hábito
             </Template.Button>
             <Template.Link>Mais informação</Template.Link>

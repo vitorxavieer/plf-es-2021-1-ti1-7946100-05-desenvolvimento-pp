@@ -57,11 +57,14 @@ function App() {
           ))}
         </ul>
       </div>
-      <BarraSuperior user={user != null ? user.uid : null} />
+      <BarraSuperior
+        setPagina={setPagina}
+        user={user != null ? user.uid : null}
+      />
       {/* <Test /> */}
-      {pagina == 0 && <Home />}
+      {pagina == 0 && <Home setPagina={setPagina} />}
       {pagina == 1 && <HomeLogado />}
-      {pagina == 2 && <CadastroHabito />}
+      {pagina == 2 && <CadastroHabito setPagina={setPagina} />}
       {pagina == 3 && <Template />}
       {/* <Button onClick={() => setPagina(pagina == 3 ? 0 : pagina + 1)}>
         Cadastrar {pagina}
