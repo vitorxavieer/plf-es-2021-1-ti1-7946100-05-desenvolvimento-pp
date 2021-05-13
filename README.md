@@ -1,4 +1,4 @@
-# Desenvolvimento Pessoal e Profissional
+# Desenvolvimento Pessoal e Profissional [![Jekyll site CI](https://github.com/ICEI-PUC-Minas-PPLES-TI/plf-es-2021-1-ti1-7946100-05-desenvolvimento-pp/actions/workflows/jekyll.yml/badge.svg)](https://github.com/ICEI-PUC-Minas-PPLES-TI/plf-es-2021-1-ti1-7946100-05-desenvolvimento-pp/actions/workflows/jekyll.yml)
 
 O objetivo geral deste trabalho é a criação de uma aplicação web que possa servir de solução para o desenvolvimento pessoal/profissional dos usuários.
 
