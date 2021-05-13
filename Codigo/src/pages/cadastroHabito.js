@@ -58,7 +58,7 @@ class CadastroHabito extends Component {
       periodicidade: '',
       horario: '',
       recompensa: '',
-      user: this.props.user ?? ''
+      user: this.props.user?.uid ?? ''
     };
 
     this.state = this.initialState;
@@ -143,7 +143,7 @@ class CadastroHabito extends Component {
               value={horario}
               onChange={this.handleChange}
               name="horario"
-              type="time"
+              type="number"
               required
             />
           </div>
@@ -159,7 +159,6 @@ class CadastroHabito extends Component {
           </div>
           <div className="Submit">
             <Template.Button type="submit" className="Button">Salvar hábito</Template.Button>
-
             <Template.Link>Mais informação</Template.Link>
           </div>
         </form>
