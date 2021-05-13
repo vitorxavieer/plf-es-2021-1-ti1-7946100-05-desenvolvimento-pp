@@ -21,7 +21,7 @@ function FormCadastroHabito(props) {
 const FormHabitos = [
   {
     label: 'Meta ideal*',
-    type: 'text',
+    type: 'number',
     placeholder: '4 ',
     required: 'required',
   },
@@ -146,6 +146,7 @@ export const BodyPage = styled.div`
   display: flex;
   flex-flow: column;
   justify-content: flex-start;
+  box-shadow: ${() => palheta.bodyBoxShadow};
 
   .Navbar {
     display: flex;

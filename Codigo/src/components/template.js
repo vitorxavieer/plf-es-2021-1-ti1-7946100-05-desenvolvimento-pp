@@ -43,12 +43,14 @@ export const Body = styled.div`
 
 const BodyDiv = styled.div`
   background-color: ${() => palheta.background};
+  box-shadow: ${() => palheta.bodyBoxShadow};
   margin: auto;
-  max-width: 700px;
+  max-width: 600px;
   height: 100%;
   padding: 20px;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+
   .Header1,
   .colors-parte {
     grid-column: 1 / 5;
@@ -252,7 +254,7 @@ export const Logo = styled.h1`
   font-size: 24px;
   line-height: 28px;
   margin: 0px;
-
+  text-decoration: underline;
   color: ${(props) => palheta.logo};
   text-shadow: -2px -2px 3px #ffff6a, 2px 2px 3px #776a22;
 `;
@@ -318,7 +320,7 @@ function Template() {
           <TextoDestaque>Correr</TextoDestaque>
         </div>
         <div className="Logo-Emoji">
-          <Logo>1%</Logo>
+          <Logo>GoHabit</Logo>
           <Emoji style={{ margin: '20px' }}>😉</Emoji>
         </div>
         <NewInputs placeholder="Input Alternativo" />

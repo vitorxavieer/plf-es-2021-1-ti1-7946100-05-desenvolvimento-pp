@@ -3,6 +3,8 @@ import * as Template from '../components/template';
 import styled from 'styled-components';
 import { login, logout } from '../utils/utils';
 import { palheta } from '../components/palheta';
+import LogoTIAW from '../assets/LogoTIAW.png';
+
 const Navbar = styled.nav`
   padding: 20px;
   max-width: 600px;
@@ -11,11 +13,17 @@ const Navbar = styled.nav`
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
   background: ${() => palheta.background};
+  box-shadow: ${() => palheta.bodyBoxShadow};
+
   padding-bottom: 5px;
-  .logo {
-    margin-left: 10px;
+  .Logo {
+    height: 72px;
+    width: 72px;
+    object-fit: cover;
+    margin-left: 16px;
   }
   .link-header {
     padding: 0px 0px;
@@ -29,7 +37,7 @@ function BarraSuperior(props) {
   const [erros, setErros] = useState('');
   return (
     <Navbar>
-      <Template.Logo className="logo">1%</Template.Logo>
+      <img className="Logo" src={LogoTIAW} />
       {!props.user && (
         <div>
           <Template.Input

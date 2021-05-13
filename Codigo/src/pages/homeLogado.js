@@ -8,6 +8,7 @@ export const BodyPage = styled.div`
   min-height: 100%;
   max-width: 600px;
   margin: auto;
+  box-shadow: ${() => palheta.bodyBoxShadow};
 
   .Habito {
     display: flex;
@@ -15,6 +16,10 @@ export const BodyPage = styled.div`
     justify-content: space-between;
     margin-top: 30px;
     margin-bottom: 30px;
+  }
+
+  .Emoji {
+    margin-left: 0px;
   }
 
   .NewInputs {
@@ -75,7 +80,6 @@ export const BodyPage = styled.div`
     padding: 20px;
 
     .Emoji {
-      margin-left: 0px;
       margin-right: 5px;
     }
 
@@ -88,7 +92,8 @@ export const BodyPage = styled.div`
     }
 
     .CheckButton {
-      margin-right: -4px;
+      margin-right: 0px;
+      margin-left: 4px;
     }
   }
 `;

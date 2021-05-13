@@ -8,9 +8,11 @@ import graficoExemplo from '../assets/graficoExemplo.svg';
 export const BodyPage = styled.div`
   background-color: ${() => palheta.background};
   padding: 20px;
+  padding-left: 32px;
   min-height: 100%;
   max-width: 600px;
   margin: auto;
+  box-shadow: ${() => palheta.bodyBoxShadow};
 
   .BlocoConteudo {
     display: flex;

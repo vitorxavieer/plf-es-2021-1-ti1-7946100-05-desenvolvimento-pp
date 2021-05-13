@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Test from './components/test';
 import { auth } from './config/firebase.config';
+import { palheta } from './components/palheta';
 import Template from './components/template';
 import CadastroHabito from './pages/cadastroHabito';
 import HomeLogado from './pages/homeLogado';
@@ -13,9 +14,10 @@ const dropdownTitulo = 'Navegação pelas telas: ';
 
 const AppDiv = styled.div`
   min-height: 100vh;
-  background-color: #e5e5e5;
+  background-color: ${() => palheta.background};
   display: grid;
   grid-template-rows: auto auto 1fr;
+  box-shadow: rgb(195, 202, 208) 5px 8px 10px, rgb(195, 202, 208) -5px 8px 10px;
 `;
 
 function App() {
