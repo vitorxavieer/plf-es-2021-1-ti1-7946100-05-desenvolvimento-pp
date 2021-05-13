@@ -5,7 +5,7 @@ import * as Template from '../components/template';
 import React, { Component } from 'react';
 import { createDoc } from '../utils/utils';
 
-function FormCadastroHabito(props) {
+/* function FormCadastroHabito(props) {
   return (
     <div className="Row">
       <div className="Label">
@@ -47,7 +47,7 @@ const FormHabitos = [
     placeholder: 'Comer um chocolate',
     required: '',
   },
-];
+]; */
 
 const EmojiButtonStyled = styled.div`
   ul.dropdown-menu.show {
@@ -227,6 +227,7 @@ class CadastroHabito extends Component {
     this.initialState = this.props.edit ?? {
       nome: '',
       ambiente: '',
+      meta: '',
       unidade: '',
       periodicidade: '',
       horario: '',
@@ -258,7 +259,7 @@ class CadastroHabito extends Component {
   };
 
   render() {
-    let { nome, ambiente, unidade, periodicidade, horario, recompensa } =
+    let { nome, ambiente, meta, unidade, periodicidade, horario, recompensa } =
       this.state;
 
     return (
@@ -270,16 +271,18 @@ class CadastroHabito extends Component {
           <div className="Row">
             <div className="Label1">
               <label>Nome do hábito*</label>
-              <Template.Emoji style={{ marginLeft: '10px' }}>😉</Template.Emoji>
             </div>
-            <Template.NewInputs
-              placeholder="Correr"
-              value={nome}
-              onChange={this.handleChange}
-              maxLength="100"
-              name="nome"
-              required
-            />
+            <div className="Label1">
+              <EmojiButton />
+              <Template.NewInputs
+                placeholder="Correr"
+                value={nome}
+                onChange={this.handleChange}
+                maxLength="100"
+                name="nome"
+                required
+              />
+            </div>
           </div>
           <div className="Row">
             <label>Ambiente*</label>{' '}
@@ -289,6 +292,18 @@ class CadastroHabito extends Component {
               value={ambiente}
               onChange={this.handleChange}
               name="ambiente"
+              required
+            />
+          </div>
+          <div className="Row">
+            <label>Meta Ideal*</label>{' '}
+            <Template.NewInputs
+              placeholder="metros"
+              maxLength="50"
+              type="text"
+              value={meta}
+              onChange={this.handleChange}
+              name="meta"
               required
             />
           </div>
@@ -322,7 +337,7 @@ class CadastroHabito extends Component {
               value={horario}
               onChange={this.handleChange}
               name="horario"
-              type="number"
+              type="time"
               required
             />
           </div>
