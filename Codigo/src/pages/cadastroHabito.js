@@ -58,7 +58,7 @@ class CadastroHabito extends Component {
       periodicidade: '',
       horario: '',
       recompensa: '',
-      user: this.props.user
+      user: this.props.user ?? ''
     };
 
     this.state = this.initialState;
