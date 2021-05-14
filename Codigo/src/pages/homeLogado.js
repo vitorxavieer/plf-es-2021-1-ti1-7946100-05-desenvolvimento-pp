@@ -1,6 +1,8 @@
-import styled from 'styled-components';
-import { palheta } from '../components/palheta';
-import * as Template from '../components/template';
+import { useEffect, useState } from "react"
+import styled from "styled-components"
+import { palheta } from "../components/palheta"
+import * as Template from "../components/template"
+import { readDocsUmaCondicao } from "../utils/utils"
 
 export const BodyPage = styled.div`
   background-color: ${() => palheta.background};
@@ -8,6 +10,7 @@ export const BodyPage = styled.div`
   min-height: 100%;
   max-width: 600px;
   margin: auto;
+  box-shadow: ${() => palheta.bodyBoxShadow};
 
   .Habito {
     display: flex;
@@ -17,12 +20,16 @@ export const BodyPage = styled.div`
     margin-bottom: 30px;
   }
 
+  .Emoji {
+    margin-left: 0px;
+  }
+
   .NewInputs {
     margin: 5px;
   }
 
   .Contador txt {
-    padding-right: 16px;
+    padding-right: 8px;
   }
 
   .Contador {
@@ -70,23 +77,38 @@ export const BodyPage = styled.div`
     display: grid;
     place-items: center;
   }
-`;
+
+  @media (max-width: 440px) {
+    padding: 20px;
+
+    .Emoji {
+      margin-right: 5px;
+    }
+
+    .Contador txt {
+      padding-right: 0px;
+    }
+
+    .fa {
+      margin: 0 8px;
+    }
+
+    .CheckButton {
+      margin-right: 0px;
+      margin-left: 4px;
+    }
+  }
+`
 
 export const Navbar = styled.nav`
   display: flex;
   justify-content: space-between;
-`;
-
-export const Img = styled.img`
-  object-fit: cover;
-  height: 100px;
-  width: auto;
-`;
+`
 
 function HabitoLinha(props) {
   return (
     <section className="Habito">
-      <Template.Emoji>{props.emoji}</Template.Emoji>
+      <Template.Emoji className="Emoji">{props.emoji}</Template.Emoji>
       <div className="NewInputs">
         <Template.TextoDestaque>
           <div className="Contador">
@@ -100,28 +122,41 @@ function HabitoLinha(props) {
         </Template.TextoDestaque>
       </div>
       <Template.Button className="CheckButton">
-        <i className="fa fa-check" style={{ fontSize: '24px' }}></i>
+        <i className="fa fa-check" style={{ fontSize: "24px" }}></i>
       </Template.Button>
     </section>
-  );
+  )
 }
 
 const Habitos = [
-  { valor: 5, unidade: 'Km', nome: 'Correr', emoji: '🏃🏻‍♂️' },
-  { valor: 20, unidade: 'Pg', nome: 'Ler', emoji: '📚' },
-  { valor: 2, unidade: 'Hr', nome: 'Estudar', emoji: '📝' },
-];
+  { valor: 5, unidade: "Km", nome: "Correr", emoji: "🏃🏻‍♂️" },
+  { valor: 20, unidade: "Pg", nome: "Ler", emoji: "📚" },
+  { valor: 2, unidade: "Hr", nome: "Estudar", emoji: "📝" },
+]
 
 function HomeLogado() {
+  const [feito, setFeito] = useState([])
+  const [erros, setErros] = useState([])
+  const [habitos, setHabitos] = useState([])
+  useEffect(() => {
+    readDocsUmaCondicao(
+      "habitos",
+      "user",
+      "RKfBgIXBDlQXBmFlQw2TgicTbwp1",
+      setHabitos,
+      setFeito,
+      setErros
+    )
+  })
   return (
     <BodyPage className="container">
       <main>
         <Template.Header1 className="Headers">Hábitos de Hoje</Template.Header1>
 
-        {Habitos.map((e, i) => (
+        {habitos.map((e, i) => (
           <HabitoLinha
             key={i}
-            valor={e.valor}
+            valor={e.meta}
             unidade={e.unidade}
             nome={e.nome}
             emoji={e.emoji}
@@ -129,7 +164,7 @@ function HomeLogado() {
         ))}
 
         <section className="End">
-          <div className="Progresso" style={{ marginTop: '80px' }}>
+          <div className="Progresso" style={{ marginTop: "80px" }}>
             <h4 className="Headers">Hoje</h4>
             <Template.BarraDeProgresso valor={70}></Template.BarraDeProgresso>
           </div>
@@ -147,7 +182,7 @@ function HomeLogado() {
         </section>
       </main>
     </BodyPage>
-  );
+  )
 }
 
-export default HomeLogado;
+export default HomeLogado

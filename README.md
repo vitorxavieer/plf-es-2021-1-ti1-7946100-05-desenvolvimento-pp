@@ -1,4 +1,4 @@
-# Desenvolvimento Pessoal e Profissional
+# Desenvolvimento Pessoal e Profissional [![Jekyll site CI](https://github.com/ICEI-PUC-Minas-PPLES-TI/plf-es-2021-1-ti1-7946100-05-desenvolvimento-pp/actions/workflows/jekyll.yml/badge.svg)](https://github.com/ICEI-PUC-Minas-PPLES-TI/plf-es-2021-1-ti1-7946100-05-desenvolvimento-pp/actions/workflows/jekyll.yml)
 
 O objetivo geral deste trabalho é a criação de uma aplicação web que possa servir de solução para o desenvolvimento pessoal/profissional dos usuários.
 
@@ -20,4 +20,12 @@ O objetivo geral deste trabalho é a criação de uma aplicação web que possa 
 
 ## Instruções de utilização
 
-Assim que a primeira versão do sistema estiver disponível, deverá complementar com as instruções de utilização. Descreva como instalar eventuais dependências e como executar a aplicação.
+#### Pré requisitos:
+ - node 12.x 
+
+#### Passos:
+ - Clonar o repósitorio ou extrair o .zip na máquina local
+ - Abrir o prompt de comando no diretório Codigo
+ - Executar o comando 'npm i'
+ - Executar o comando 'npm run start' 
+

@@ -6,6 +6,8 @@ export const palheta = {
   darkShadow: '#D0D0D0',
   lightShadow:
     'linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%), #FFFFFF',
+  bodyBoxShadow:
+    'rgb(195, 202, 208) 5px 8px 10px, rgb(195, 202, 208) -5px 8px 10px',
 
   /* DropShadow e InnerShadow (dark) */
   shadowBackground: '#C4C4C4',

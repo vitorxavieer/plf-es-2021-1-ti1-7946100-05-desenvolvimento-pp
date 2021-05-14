@@ -3,19 +3,22 @@ import styled from "styled-components";
 import { palheta } from "../components/palheta";
 import * as Template from "../components/template";
 import { login } from "../utils/utils";
+import graficoExemplo from "../assets/graficoExemplo.svg";
 
 export const BodyPage = styled.div`
   background-color: ${() => palheta.background};
   padding: 20px;
+  padding-left: 32px;
   min-height: 100%;
   max-width: 600px;
   margin: auto;
+  box-shadow: ${() => palheta.bodyBoxShadow};
 
   .BlocoConteudo {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 30px 0px;
+    margin: 20px 0px 30px;
     flex-wrap: wrap;
   }
 
@@ -24,7 +27,7 @@ export const BodyPage = styled.div`
     padding: 5px;
   }
 
-  .NewInputs {
+  .TextoDestaque {
     margin: 10px;
   }
 
@@ -32,6 +35,11 @@ export const BodyPage = styled.div`
     height: 80px;
     width: auto;
     object-fit: fill;
+  }
+
+  .Link {
+    display: grid;
+    place-items: center;
   }
 `;
 
@@ -66,7 +74,7 @@ function Home(props) {
         </Template.Body>
         <div className="BlocoConteudo">
           <Template.Emoji>🏃🏻‍♂️</Template.Emoji>
-          <div className="NewInputs">
+          <div className="TextoDestaque">
             <Template.TextoDestaque>Correr</Template.TextoDestaque>
           </div>
         </div>
@@ -75,12 +83,12 @@ function Home(props) {
           Veja uma lista atualizada diariamente com os hábitos a serem feitos
         </Template.Body>
         <div className="BlocoConteudo">
-          <div className="NewInputs">
+          <div className="TextoDestaque">
             <Template.TextoDestaque>
               Correr 5km 2 vezes por semana
             </Template.TextoDestaque>
           </div>
-          <div className="NewInputs">
+          <div className="TextoDestaque">
             <Template.TextoDestaque>
               Ler 10 páginas por dia
             </Template.TextoDestaque>
@@ -92,16 +100,18 @@ function Home(props) {
         </Template.Body>
         <div className="BlocoConteudo">
           <Template.Card style={{ marginTop: "20px" }}>
-            <img
-              className="ImgCard"
-              src="https://www.flaticon.com/svg/vstatic/svg/558/558385.svg?token=exp=1620653177~hmac=684530842beb0aa92e2c21d0ad190215"
-            />
+            <img className="ImgCard" src={graficoExemplo} />
           </Template.Card>
         </div>
         <div className="BlocoConteudo">
           <Template.Button onClick={() => props.setShowModal(true)}>
             Quero me Cadastrar!
           </Template.Button>
+        </div>
+        <div className="Link">
+          <Template.Link onClick={() => props.setPagina(3)}>
+            Template
+          </Template.Link>
         </div>
       </main>
     </BodyPage>
