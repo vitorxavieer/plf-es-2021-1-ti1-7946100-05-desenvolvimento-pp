@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { login, logout } from "../utils/utils";
 import { palheta } from "../components/palheta";
 import { Modal } from "../components/Modal";
+
 const Navbar = styled.nav`
   padding: 20px;
   max-width: 600px;
@@ -89,11 +90,13 @@ function BarraSuperior(props) {
             className={"input-header"}
             placeholder="email"
             type="email"
+            onChange={(e) => setEmail(e.target.value)}
           />
           <Template.Input
             className={"input-header"}
             placeholder="senha"
             type="password"
+            onChange={(e) => setSenha(e.target.value)}
           />
           <Template.Link
             onClick={() => login(email, senha, setErros)}
