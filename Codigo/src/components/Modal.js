@@ -63,7 +63,7 @@ const ModalContent = styled.div`
         flex-direction: column;
         align-self: center;
         justify-content: space-between;
-        height:  300px;
+        height:  400px;
         
         .inpt{
           margin-left: 10px;
@@ -99,7 +99,6 @@ const ModalContent = styled.div`
     }
   }
 `;
-
 
 export const Modal = ({ showModal, setShowModal }) => {
   const [nomeCadastro, setNomeCadastro] = useState("");
@@ -162,7 +161,8 @@ export const Modal = ({ showModal, setShowModal }) => {
                       <Template.Input
                         type="password"
                         placeholder="Confirme a senha"
-                        onChange={(e) => null
+                        onChange={
+                          (e) => null
                           // setConfirmaSenhaCadastro(e.target.value)
                         }
                       ></Template.Input>
