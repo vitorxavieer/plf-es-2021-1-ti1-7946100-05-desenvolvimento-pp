@@ -254,8 +254,10 @@ class CadastroHabito extends Component {
       this.state,
       () => {},
       () => {}
-    );
-    this.setState(this.initialState);
+    ).then(() => {
+      this.setState(this.initialState);
+      this.props.setPagina(1);
+    });    
   };
 
   render() {
@@ -355,7 +357,6 @@ class CadastroHabito extends Component {
             <Template.Button
               type="submit"
               className="Button"
-              onClick={() => this.props.setPagina(1)}
             >
               Salvar hábito
             </Template.Button>

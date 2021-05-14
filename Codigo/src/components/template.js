@@ -238,10 +238,7 @@ export function NewInputs(props) {
           background: palheta.background,
           color: palheta.text,
         }}
-        type={props.type}
-        placeholder={props.placeholder}
-        required={props.required}
-        onChange={props.onChange}
+        {...props}
       />
       <Linha />
     </div>
