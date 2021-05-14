@@ -37,6 +37,10 @@ const Navbar = styled.nav`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    a{
+      margin: 5px;
+    }
   }
 `;
 // const Container = styled.div`
@@ -116,15 +120,14 @@ function BarraSuperior(props) {
             setShowModal={props.setShowModal}
           />
           <div class="dropdown" id="div-dropdown-opcoesLogin">
-            <Template.Button
+            <Template.Link
               class="btn btn-secondary dropdown-toggle"
-              type="button"
               id="dropdownOpcoesLogin"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
               ?
-            </Template.Button>
+            </Template.Link>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               {opcoes.map((e, i) => (
                 <li key={i}>
