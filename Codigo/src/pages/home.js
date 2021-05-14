@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import styled from 'styled-components';
-import { palheta } from '../components/palheta';
-import * as Template from '../components/template';
-import { login } from '../utils/utils';
+import { useState } from "react";
+import styled from "styled-components";
+import { palheta } from "../components/palheta";
+import * as Template from "../components/template";
+import { login } from "../utils/utils";
 
 export const BodyPage = styled.div`
   background-color: ${() => palheta.background};
@@ -49,13 +49,13 @@ export const Img = styled.img`
   width: auto;
 `;
 
-function Home() {
-  const [erros, setErros] = useState('');
+function Home(props) {
+  const [erros, setErros] = useState("");
 
   return (
     <BodyPage className="container">
       <main>
-        <Template.Header1 style={{ textAlign: 'center' }}>
+        <Template.Header1 style={{ textAlign: "center" }}>
           Como funciona?
         </Template.Header1>
         <Template.Header2>1 - Cadastre um hábito</Template.Header2>
@@ -91,7 +91,7 @@ function Home() {
           Tenha o seu desenvolvimento registrado e acessível a qualquer momento
         </Template.Body>
         <div className="BlocoConteudo">
-          <Template.Card style={{ marginTop: '20px' }}>
+          <Template.Card style={{ marginTop: "20px" }}>
             <img
               className="ImgCard"
               src="https://www.flaticon.com/svg/vstatic/svg/558/558385.svg?token=exp=1620653177~hmac=684530842beb0aa92e2c21d0ad190215"
@@ -99,7 +99,9 @@ function Home() {
           </Template.Card>
         </div>
         <div className="BlocoConteudo">
-          <Template.Button>Quero me Cadastrar!</Template.Button>
+          <Template.Button onClick={() => props.setShowModal(true)}>
+            Quero me Cadastrar!
+          </Template.Button>
         </div>
       </main>
     </BodyPage>

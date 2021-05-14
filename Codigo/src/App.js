@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import Test from './components/test';
-import { auth } from './config/firebase.config';
-import Template from './components/template';
-import CadastroHabito from './pages/cadastroHabito';
-import HomeLogado from './pages/homeLogado';
-import Home from './pages/home';
-import BarraSuperior from './pages/BarraSuperior';
+import { useEffect, useState } from "react";
+import styled from "styled-components";
+import Test from "./components/test";
+import { auth } from "./config/firebase.config";
+import Template from "./components/template";
+import CadastroHabito from "./pages/cadastroHabito";
+import HomeLogado from "./pages/homeLogado";
+import Home from "./pages/home";
+import BarraSuperior from "./pages/BarraSuperior";
 
-const Telas = ['Home', 'HomeLogado', 'Cadastro de Hábitos', 'Template'];
-const dropdownTitulo = 'Navegação pelas telas: ';
+const Telas = ["Home", "HomeLogado", "Cadastro de Hábitos", "Template"];
+const dropdownTitulo = "Navegação pelas telas: ";
 
 const AppDiv = styled.div`
   min-height: 100vh;
@@ -20,8 +20,9 @@ const AppDiv = styled.div`
 
 function App() {
   const [pagina, setPagina] = useState(0);
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState("");
   const [navegacao, setNavegacao] = useState(dropdownTitulo);
+  const [showModal, setShowModal] = useState(false);
   useEffect(() => {
     const unlisten = auth.onAuthStateChanged((authUser) => {
       authUser ? setUser(authUser) : setUser(null);
@@ -31,7 +32,7 @@ function App() {
     };
   });
   useEffect(() => setNavegacao(dropdownTitulo + Telas[pagina]), [pagina]);
-  console.log('user', user);
+  console.log("user", user);
 
   return (
     <AppDiv>
@@ -55,9 +56,13 @@ function App() {
           ))}
         </ul>
       </div>
-      <BarraSuperior user={user != null ? user.uid : null} />
+      <BarraSuperior
+        showModal={showModal}
+        setShowModal={setShowModal}
+        user={user != null ? user.uid : null}
+      />
       {/* <Test /> */}
-      {pagina == 0 && <Home />}
+      {pagina == 0 && <Home setShowModal={setShowModal} />}
       {pagina == 1 && <HomeLogado />}
       {pagina == 2 && <CadastroHabito />}
       {pagina == 3 && <Template />}

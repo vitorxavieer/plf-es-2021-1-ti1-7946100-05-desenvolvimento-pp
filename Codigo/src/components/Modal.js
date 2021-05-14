@@ -27,7 +27,7 @@ const ModalWrapper = styled.div`
   background: #f5f5f5;
 
   top: 12.5%;
-  left: 37.5%;
+  left: 35.5%;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   justify-content: flex-start;
 `;
@@ -75,7 +75,10 @@ const ModalContent = styled.div`
         box-shadow: 2px 2px 10px #D0D0D0, -10px -10px 10px #FFFFFF;
         margin-left: 15px;
     }
-
+    .modal-title{
+      position: relative;
+      left: 35px;
+    }
     }
     #btnEnviarCadastro{
       padding: 10px;
@@ -84,6 +87,12 @@ const ModalContent = styled.div`
       font-size: 16px;
       border: 0px;
       background-color: rgba(248, 236, 220, 0.8);
+    }
+    #closeButton{
+      color: black;
+      padding: 10px;
+      position: relative;
+      left: 170px;
     }
   }
 `;
@@ -102,6 +111,12 @@ export const Modal = ({ showModal, setShowModal }) => {
             <ModalContent>
               <div className="modal-header">
                 <h3 className="modal-title">Cadastro</h3>
+                <Template.Button
+                  onClick={() => setShowModal(false)}
+                  id="closeButton"
+                >
+                  X
+                </Template.Button>
               </div>
               <div className="modal-body">
                 <div className="nome">

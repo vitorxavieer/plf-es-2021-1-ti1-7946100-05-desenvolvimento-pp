@@ -44,10 +44,9 @@ function BarraSuperior(props) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [show, setShow] = useState(false);
-  const [showModal, setShowModal] = useState(false);
 
   const openModal = () => {
-    setShowModal((prev) => !prev);
+    props.setShowModal((prev) => !prev);
   };
 
   console.log(erros);
@@ -105,7 +104,10 @@ function BarraSuperior(props) {
             Login
           </Template.Link>
           <Template.Link onClick={openModal}>Cadastrar</Template.Link>
-          <Modal showModal={showModal} setShowModal={setShowModal} />
+          <Modal
+            showModal={props.showModal}
+            setShowModal={props.setShowModal}
+          />
           <div class="dropdown" id="div-dropdown-opcoesLogin">
             <Template.Button
               class="btn btn-secondary dropdown-toggle"
