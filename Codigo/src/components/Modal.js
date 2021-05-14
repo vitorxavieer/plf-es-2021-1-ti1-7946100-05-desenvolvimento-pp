@@ -18,7 +18,7 @@ const ModalWrapper = styled.div`
   display: flex;
   flex-orientation: column;
 
-  width: 550px;
+  width: 400px;
   height: 600px;
 
   z-index: 10;
@@ -36,11 +36,11 @@ const ModalWrapper = styled.div`
 const ModalContent = styled.div`
 
   form{
- 
-  width: 540px;
+  
+  width: 400px;
   height: 590px;
   position: relative;
-  
+  align=self: flex-start;
   }
   
   .modal-header{
@@ -80,7 +80,8 @@ const ModalContent = styled.div`
     input{
         border: 1px solid #F5F5F5;
         box-shadow: 2px 2px 10px #D0D0D0, -10px -10px 10px #FFFFFF;
-        margin-left: 15px;
+        margin-left: 20px;
+
     }
     .modal-title{
       position: relative;
@@ -93,13 +94,13 @@ const ModalContent = styled.div`
       font-weight: bold;
       font-size: 16px;
       border: 0px;
-      background-color: rgba(248, 236, 220, 0.8);
+
     }
     #closeButton{
       color: black;
       padding: 10px;
       position: relative;
-      left: 170px;
+      left: 100px;
     }
   }
 `;
