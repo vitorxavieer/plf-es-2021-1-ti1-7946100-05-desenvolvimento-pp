@@ -1,6 +1,20 @@
 
 # Projeto de Interface
 
+Artefatos:
+> Imagem do fluxo: 
+ 
+![FluxoInterface2](https://user-images.githubusercontent.com/83791020/118220650-8fee2900-b452-11eb-9bad-4d3e3f7e4ac0.png)
+
+
+> Gif do user flow:  
+
+![ProjetoDeInterface](https://user-images.githubusercontent.com/83791020/118220590-68975c00-b452-11eb-9342-7970047c04e4.gif)
+
+> Link com o protótipo de interface navegável: [Link no figma](https://www.figma.com/proto/w9lNbXNrCIuFC3LoSgWelW/TIAW-1?node-id=122%3A68&scaling=min-zoom)
+
+
+
 <span style="color:red">Pré-requisitos: <a href="2-Especificação.md"> Documentação de Especificação</a></span>
 
 > Apresente as principais a interface da plataforma. Discuta como ela
