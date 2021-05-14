@@ -241,6 +241,7 @@ export function NewInputs(props) {
         type={props.type}
         placeholder={props.placeholder}
         required={props.required}
+        onChange={props.onChange}
       />
       <Linha />
     </div>
