@@ -17,7 +17,7 @@ const Background = styled.div`
 const ModalWrapper = styled.div`
   display: flex;
   flex-orientation: column;
-  position: fixed;
+
   width: 550px;
   height: 600px;
 
@@ -26,17 +26,21 @@ const ModalWrapper = styled.div`
   color: black;
   background: #f5f5f5;
 
-  top: 12.5%;
-  left: 35.5%;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   justify-content: flex-start;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 const ModalContent = styled.div`
+
   form{
  
   width: 540px;
   height: 590px;
   position: relative;
+  
   }
   
   .modal-header{
