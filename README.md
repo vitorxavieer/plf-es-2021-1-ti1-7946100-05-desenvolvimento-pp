@@ -20,4 +20,12 @@ O objetivo geral deste trabalho é a criação de uma aplicação web que possa 
 
 ## Instruções de utilização
 
-Assim que a primeira versão do sistema estiver disponível, deverá complementar com as instruções de utilização. Descreva como instalar eventuais dependências e como executar a aplicação.
+#### Pré requisitos:
+ - node 12.x 
+
+#### Passos:
+ - Clonar o repósitorio ou extrair o .zip na máquina local
+ - Abrir o prompt de comando no diretório Codigo
+ - Executar o comando 'npm i'
+ - Executar o comando 'npm run start' 
+
