@@ -82,7 +82,7 @@ export function readDocsUmaCondicao(
       let valores = []
       querySnapshot.forEach(doc => {
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data())
+        // console.log(doc.id, " => ", doc.data())
         valores.push({ ...doc.data(), docId: doc.id })
       })
       setValores(valores)
@@ -130,12 +130,12 @@ export function login(email, password, setErros) {
     .signInWithEmailAndPassword(email, password)
     .then(userCredential => {
       // Signed in
-      var user = userCredential.user
+      // var user = userCredential.user
       console.log(userCredential)
       // ...
     })
     .catch(error => {
-      var errorCode = error.code
+      // var errorCode = error.code
       var errorMessage = error.message
       setErros(errorMessage)
     })
@@ -145,10 +145,10 @@ export function signUp(email, password, setErros){
     return auth.createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
       // Signed in
-      var user = userCredential.user;
+      // var user = userCredential.user;
     })
     .catch((error) => {
-      var errorCode = error.code;
+      // var errorCode = error.code;
       var errorMessage = error.message;
       setErros(errorMessage)
     });

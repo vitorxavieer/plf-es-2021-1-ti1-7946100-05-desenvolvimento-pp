@@ -1,9 +1,9 @@
-import styled from 'styled-components';
-import { useEffect, useState, useRef } from 'react';
-import { palheta } from '../components/palheta';
-import * as Template from '../components/template';
-import React, { Component } from 'react';
-import { createDoc } from '../utils/utils';
+import styled from "styled-components"
+import { useEffect, useState, useRef } from "react"
+import { palheta } from "../components/palheta"
+import * as Template from "../components/template"
+import React, { Component } from "react"
+import { createDoc } from "../utils/utils"
 
 /* function FormCadastroHabito(props) {
   return (
@@ -65,39 +65,49 @@ const EmojiButtonStyled = styled.div`
       box-shadow: 2px 2px 5px #c3cad0, -2px -2px 5px #ffffff;
     }
   }
-`;
+`
 
 const emojiRange = [
   [128513, 128591],
   [9986, 10160],
   [128640, 128704],
-];
+]
 
 export function EmojiButton(props) {
-  const [emoji, setEmoji] = useState(props.emoji || '&#128521');
-  const ulRef = useRef(null);
-  const divRef = useRef(null);
+  const [emoji, setEmoji] = useState(props.emoji || "&#128521")
+  const ulRef = useRef(null)
+  const divRef = useRef(null)
 
-  let emojiRange2 = [];
+  let emojiRange2 = []
 
   for (var i = 0; i < emojiRange.length; i++) {
-    var range = emojiRange[i];
+    var range = emojiRange[i]
     for (var x = range[0]; x < range[1]; x++) {
-      emojiRange2.push(x);
+      emojiRange2.push(x)
     }
   }
 
   useEffect(() => {
-    if (ulRef.current) {
-      emojiRange2.map((e, i) => {
-        document.getElementById('emoji-' + i).innerHTML = '&#' + e;
-      });
+    let res = {
+      target: {
+        name: "emoji",
+        value: emoji,
+      },
     }
-  }, [ulRef.current]);
+    props.onChange(res)
+  }, [emoji])
 
   useEffect(() => {
-    if (divRef.current) divRef.current.innerHTML = emoji;
-  }, [emoji]);
+    if (ulRef.current) {
+      emojiRange2.map((e, i) => {
+        document.getElementById("emoji-" + i).innerHTML = "&#" + e
+      })
+    }
+  }, [ulRef.current])
+
+  useEffect(() => {
+    if (divRef.current) divRef.current.innerHTML = emoji
+  }, [emoji])
 
   return (
     <EmojiButtonStyled className="dropdown">
@@ -121,19 +131,19 @@ export function EmojiButton(props) {
           <li key={i}>
             <a
               class="dropdown-item"
-              id={'emoji-' + i}
+              id={"emoji-" + i}
               onClick={() => {
-                setEmoji('&#' + e);
+                setEmoji("&#" + e)
               }}
               href="#"
             >
-              {'&#' + e + ''}
+              {"&#" + e + ""}
             </a>
           </li>
         ))}
       </ul>
     </EmojiButtonStyled>
-  );
+  )
 }
 
 export const BodyPage = styled.div`
@@ -183,7 +193,7 @@ export const BodyPage = styled.div`
   .EmojiButton {
     padding: 8px;
   }
-`;
+`
 
 /* function CadastroHabito() {
   return (
@@ -222,51 +232,59 @@ export const BodyPage = styled.div`
 
 class CadastroHabito extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.initialState = this.props.edit ?? {
-      nome: '',
-      ambiente: '',
-      meta: '',
-      unidade: '',
-      periodicidade: '',
-      horario: '',
-      recompensa: '',
-      user: this.props.user?.uid ?? '',
-    };
+      nome: "",
+      ambiente: "",
+      meta: "",
+      unidade: "",
+      periodicidade: "",
+      horario: "",
+      recompensa: "",
+      emoji: "😉",
+      user: this.props.user?.uid ?? "",
+    }
 
-    this.state = this.initialState;
+    this.state = this.initialState
   }
 
-  handleChange = (event) => {
-    const { name, value } = event.target;
+  handleChange = event => {
+    const { name, value } = event.target
 
     this.setState({
       [name]: value,
-    });
-  };
+    })
+  }
 
-  onFormSubmit = (event) => {
-    event.preventDefault();
+  onFormSubmit = event => {
+    event.preventDefault()
 
     createDoc(
-      'habitos',
+      "habitos",
       this.state,
-      () => {},
+      this.props.setHabitoCadastrado,
       () => {}
     ).then(() => {
-      this.setState(this.initialState);
-      this.props.setPagina(1);
-    });    
-  };
+      this.setState(this.initialState)
+      this.props.setPagina(1)
+    })
+  }
 
   render() {
-    let { nome, ambiente, meta, unidade, periodicidade, horario, recompensa } =
-      this.state;
+    let {
+      nome,
+      ambiente,
+      meta,
+      unidade,
+      periodicidade,
+      horario,
+      recompensa,
+    } = this.state
 
     return (
       <BodyPage>
-        <Template.Header1 style={{ textAlign: 'center' }}>
+        <Template.Header1 style={{ textAlign: "center" }}>
           Cadastro de hábito
         </Template.Header1>
         <form onSubmit={this.onFormSubmit}>
@@ -275,7 +293,7 @@ class CadastroHabito extends Component {
               <label>Nome do hábito*</label>
             </div>
             <div className="Label1">
-              <EmojiButton />
+              <EmojiButton onChange={this.handleChange} />
               <Template.NewInputs
                 placeholder="Correr"
                 value={nome}
@@ -287,7 +305,7 @@ class CadastroHabito extends Component {
             </div>
           </div>
           <div className="Row">
-            <label>Ambiente*</label>{' '}
+            <label>Ambiente*</label>{" "}
             <Template.NewInputs
               placeholder="Ruas do bairro"
               maxLength="100"
@@ -298,7 +316,7 @@ class CadastroHabito extends Component {
             />
           </div>
           <div className="Row">
-            <label>Meta Ideal*</label>{' '}
+            <label>Meta Ideal*</label>{" "}
             <Template.NewInputs
               placeholder="metros"
               maxLength="50"
@@ -310,7 +328,7 @@ class CadastroHabito extends Component {
             />
           </div>
           <div className="Row">
-            <label>Unidade*</label>{' '}
+            <label>Unidade*</label>{" "}
             <Template.NewInputs
               placeholder="metros"
               maxLength="50"
@@ -334,7 +352,7 @@ class CadastroHabito extends Component {
             />
           </div>
           <div className="Row">
-            <label>Horário*</label>{' '}
+            <label>Horário*</label>{" "}
             <Template.NewInputs
               value={horario}
               onChange={this.handleChange}
@@ -344,7 +362,7 @@ class CadastroHabito extends Component {
             />
           </div>
           <div className="Row">
-            <label>Recompensa por hábito</label>{' '}
+            <label>Recompensa por hábito</label>{" "}
             <Template.NewInputs
               placeholder="Comer um chocolate"
               maxLength="100"
@@ -354,18 +372,16 @@ class CadastroHabito extends Component {
             />
           </div>
           <div className="Submit">
-            <Template.Button
-              type="submit"
-              className="Button"
-            >
+            <Template.Button type="submit" className="Button">
               Salvar hábito
             </Template.Button>
+            <Template.Link onClick={() => this.props.setPagina(1)}>Cancelar</Template.Link>
             <Template.Link>Mais informação</Template.Link>
           </div>
         </form>
       </BodyPage>
-    );
+    )
   }
 }
 
-export default CadastroHabito;
+export default CadastroHabito

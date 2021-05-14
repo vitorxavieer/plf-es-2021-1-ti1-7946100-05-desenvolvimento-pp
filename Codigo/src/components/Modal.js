@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { signUp } from "../utils/utils";
 import * as Template from "./template";
@@ -100,12 +100,13 @@ const ModalContent = styled.div`
   }
 `;
 
+
 export const Modal = ({ showModal, setShowModal }) => {
   const [nomeCadastro, setNomeCadastro] = useState("");
   const [emailCadastro, setEmailCadastro] = useState("");
   const [senhaCadastro, setSenhaCadastro] = useState("");
-  const [confirmaSenhaCadastro, setConfirmaSenhaCadastro] = useState("");
-  const [erros, setErros] = useState("");
+  // const [confirmaSenhaCadastro, setConfirmaSenhaCadastro] = useState("");
+  const [, setErros] = useState("");
   return (
     <>
       {showModal ? (
@@ -161,8 +162,8 @@ export const Modal = ({ showModal, setShowModal }) => {
                       <Template.Input
                         type="password"
                         placeholder="Confirme a senha"
-                        onChange={(e) =>
-                          setConfirmaSenhaCadastro(e.target.value)
+                        onChange={(e) => null
+                          // setConfirmaSenhaCadastro(e.target.value)
                         }
                       ></Template.Input>
                     </div>

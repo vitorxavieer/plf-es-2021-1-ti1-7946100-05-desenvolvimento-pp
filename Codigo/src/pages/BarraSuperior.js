@@ -39,19 +39,18 @@ const Navbar = styled.nav`
     justify-content: space-between;
   }
 `;
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`;
+// const Container = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: 100vh;
+// `;
 const opcoes = ["Esqueci a senha", "Alterar minha senha"];
 
 function BarraSuperior(props) {
   const [erros, setErros] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [show, setShow] = useState(false);
 
   const openModal = () => {
     props.setShowModal((prev) => !prev);
@@ -90,7 +89,7 @@ function BarraSuperior(props) {
 
   return (
     <Navbar>
-      <img className="Logo" src={LogoTIAW} onClick={() => props.setPagina(0)} />
+      <img alt="GoHabit" className="Logo" src={LogoTIAW} onClick={() => props.setPagina(0)} />
       {!props.user && (
         <div>
           <Template.Input
@@ -132,7 +131,7 @@ function BarraSuperior(props) {
                   <a
                     class="dropdown-item"
                     onClick={() => console.log("a")}
-                    href="#"
+                    href="#ToDo"
                   >
                     {e}
                   </a>

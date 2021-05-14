@@ -1,8 +1,6 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { palheta } from "../components/palheta";
 import * as Template from "../components/template";
-import { login } from "../utils/utils";
 import graficoExemplo from "../assets/graficoExemplo.svg";
 
 export const BodyPage = styled.div`
@@ -58,7 +56,7 @@ export const Img = styled.img`
 `;
 
 function Home(props) {
-  const [erros, setErros] = useState("");
+  // const [erros, setErros] = useState("");
 
   return (
     <BodyPage className="container">
@@ -100,7 +98,7 @@ function Home(props) {
         </Template.Body>
         <div className="BlocoConteudo">
           <Template.Card style={{ marginTop: "20px" }}>
-            <img className="ImgCard" src={graficoExemplo} />
+            <img alt="Exemplo" className="ImgCard" src={graficoExemplo} />
           </Template.Card>
         </div>
         <div className="BlocoConteudo">

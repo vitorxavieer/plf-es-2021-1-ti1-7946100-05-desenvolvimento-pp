@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import styled from "styled-components"
 import { palheta } from "../components/palheta"
 import * as Template from "../components/template"
@@ -106,9 +106,14 @@ export const Navbar = styled.nav`
 `
 
 function HabitoLinha(props) {
+  const emojiRef = useRef(null)
+  useEffect(() => {
+    if(emojiRef.current) emojiRef.current.innerHTML = props.emoji
+  },[emojiRef])
+
   return (
     <section className="Habito">
-      <Template.Emoji className="Emoji">{props.emoji}</Template.Emoji>
+      <Template.Emoji ref={emojiRef} className="Emoji">{props.emoji}</Template.Emoji>
       <div className="NewInputs">
         <Template.TextoDestaque>
           <div className="Contador">
@@ -128,15 +133,15 @@ function HabitoLinha(props) {
   )
 }
 
-const Habitos = [
-  { valor: 5, unidade: "Km", nome: "Correr", emoji: "🏃🏻‍♂️" },
-  { valor: 20, unidade: "Pg", nome: "Ler", emoji: "📚" },
-  { valor: 2, unidade: "Hr", nome: "Estudar", emoji: "📝" },
-]
+// const Habitos = [
+//   { valor: 5, unidade: "Km", nome: "Correr", emoji: "🏃🏻‍♂️" },
+//   { valor: 20, unidade: "Pg", nome: "Ler", emoji: "📚" },
+//   { valor: 2, unidade: "Hr", nome: "Estudar", emoji: "📝" },
+// ]
 
-function HomeLogado() {
-  const [feito, setFeito] = useState([])
-  const [erros, setErros] = useState([])
+function HomeLogado(props) {
+  const [, setFeito] = useState([])
+  const [, setErros] = useState([])
   const [habitos, setHabitos] = useState([])
   useEffect(() => {
     readDocsUmaCondicao(
@@ -147,7 +152,7 @@ function HomeLogado() {
       setFeito,
       setErros
     )
-  })
+  },[])
   return (
     <BodyPage className="container">
       <main>
@@ -173,7 +178,7 @@ function HomeLogado() {
             <Template.BarraDeProgresso valor={30}></Template.BarraDeProgresso>
           </div>
           <div className="Submit">
-            <Template.Button className="Button">
+            <Template.Button className="Button" onClick={() => props.setPagina(2)}>
               Adicionar Hábito
             </Template.Button>
             <Template.Link>Acompanhamento</Template.Link>
