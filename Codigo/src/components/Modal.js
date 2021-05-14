@@ -32,9 +32,12 @@ const ModalWrapper = styled.div`
   justify-content: flex-start;
 `;
 const ModalContent = styled.div`
+  form{
+ 
   width: 540px;
   height: 590px;
-
+  position: relative;
+  }
   
   .modal-header{
     align-self: flex-start;
@@ -54,7 +57,7 @@ const ModalContent = styled.div`
     }
     .modal-body{
       position: relative;
-      right: 430px;
+
         width: 100%;
         display:flex;
         flex-direction: column;
@@ -109,72 +112,76 @@ export const Modal = ({ showModal, setShowModal }) => {
         <Background>
           <ModalWrapper showModal={showModal}>
             <ModalContent>
-              <div className="modal-header">
-                <h3 className="modal-title">Cadastro</h3>
-                <Template.Button
-                  onClick={() => setShowModal(false)}
-                  id="closeButton"
-                >
-                  X
-                </Template.Button>
-              </div>
-              <div className="modal-body">
-                <div className="nome">
-                  <div className="inpt">
-                    <label className="label">Nome: </label>
-                    <Template.Input
-                      onChange={(e) => setNomeCadastro(e.target.value)}
-                      type="text"
-                      placeholder="Nome completo"
-                    ></Template.Input>
-                  </div>
+              <form>
+                <div className="modal-header">
+                  <h3 className="modal-title">Cadastro</h3>
+                  <Template.Button
+                    onClick={() => setShowModal(false)}
+                    id="closeButton"
+                  >
+                    X
+                  </Template.Button>
                 </div>
-                <div className="email">
-                  <div className="inpt">
-                    <label className="label">Email: </label>
-                    <Template.Input
-                      onChange={(e) => setEmailCadastro(e.target.value)}
-                      type="email"
-                      placeholder="Email"
-                    ></Template.Input>
+                <div className="modal-body">
+                  <div className="nome">
+                    <div className="inpt">
+                      <label className="label">Nome: </label>
+                      <Template.Input
+                        onChange={(e) => setNomeCadastro(e.target.value)}
+                        type="text"
+                        placeholder="Nome completo"
+                      ></Template.Input>
+                    </div>
                   </div>
-                </div>
-                <div className="senha">
-                  <div className="inpt">
-                    <label className="label">Senha: </label>
-                    <Template.Input
-                      onChange={(e) => setSenhaCadastro(e.target.value)}
-                      type="password"
-                      placeholder="Senha"
-                    ></Template.Input>
+                  <div className="email">
+                    <div className="inpt">
+                      <label className="label">Email: </label>
+                      <Template.Input
+                        onChange={(e) => setEmailCadastro(e.target.value)}
+                        type="email"
+                        placeholder="Email"
+                      ></Template.Input>
+                    </div>
                   </div>
-                </div>
-                <div className="confirma-senha">
-                  <div className="inpt">
-                    <label className="label">
-                      Confirme<br></br> a senha:{" "}
-                    </label>
-                    <Template.Input
-                      type="password"
-                      placeholder="Confirme a senha"
-                      onChange={(e) => setConfirmaSenhaCadastro(e.target.value)}
-                    ></Template.Input>
+                  <div className="senha">
+                    <div className="inpt">
+                      <label className="label">Senha: </label>
+                      <Template.Input
+                        onChange={(e) => setSenhaCadastro(e.target.value)}
+                        type="password"
+                        placeholder="Senha"
+                      ></Template.Input>
+                    </div>
                   </div>
-                </div>
+                  <div className="confirma-senha">
+                    <div className="inpt">
+                      <label className="label">
+                        Confirme<br></br> a senha:{" "}
+                      </label>
+                      <Template.Input
+                        type="password"
+                        placeholder="Confirme a senha"
+                        onChange={(e) =>
+                          setConfirmaSenhaCadastro(e.target.value)
+                        }
+                      ></Template.Input>
+                    </div>
+                  </div>
 
-                <div className="btnSubmit">
-                  <div className="inpt">
-                    <Template.Button
-                      onClick={() =>
-                        signUp(emailCadastro, senhaCadastro, setErros)
-                      }
-                      id="btnEnviarCadastro"
-                    >
-                      Enviar
-                    </Template.Button>
+                  <div className="btnSubmit">
+                    <div className="inpt">
+                      <Template.Button
+                        onClick={() =>
+                          signUp(emailCadastro, senhaCadastro, setErros)
+                        }
+                        id="btnEnviarCadastro"
+                      >
+                        Enviar
+                      </Template.Button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </form>
             </ModalContent>
           </ModalWrapper>
         </Background>
