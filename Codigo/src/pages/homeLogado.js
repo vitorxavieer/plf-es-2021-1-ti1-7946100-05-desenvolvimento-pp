@@ -108,12 +108,14 @@ export const Navbar = styled.nav`
 function HabitoLinha(props) {
   const emojiRef = useRef(null)
   useEffect(() => {
-    if(emojiRef.current) emojiRef.current.innerHTML = props.emoji
-  },[emojiRef])
+    if (emojiRef.current) emojiRef.current.innerHTML = props.emoji
+  }, [emojiRef])
 
   return (
     <section className="Habito">
-      <Template.Emoji ref={emojiRef} className="Emoji">{props.emoji}</Template.Emoji>
+      <Template.Emoji ref={emojiRef} className="Emoji">
+        {props.emoji}
+      </Template.Emoji>
       <div className="NewInputs">
         <Template.TextoDestaque>
           <div className="Contador">
@@ -147,12 +149,12 @@ function HomeLogado(props) {
     readDocsUmaCondicao(
       "habitos",
       "user",
-      "RKfBgIXBDlQXBmFlQw2TgicTbwp1",
+      props.user,
       setHabitos,
       setFeito,
       setErros
     )
-  },[])
+  }, [])
   return (
     <BodyPage className="container">
       <main>
@@ -178,7 +180,10 @@ function HomeLogado(props) {
             <Template.BarraDeProgresso valor={30}></Template.BarraDeProgresso>
           </div>
           <div className="Submit">
-            <Template.Button className="Button" onClick={() => props.setPagina(2)}>
+            <Template.Button
+              className="Button"
+              onClick={() => props.setPagina(2)}
+            >
               Adicionar Hábito
             </Template.Button>
             <Template.Link>Acompanhamento</Template.Link>

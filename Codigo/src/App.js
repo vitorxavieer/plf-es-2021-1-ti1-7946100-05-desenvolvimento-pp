@@ -53,7 +53,12 @@ function App() {
         setPagina={setPagina}
       />
       {pagina === 0 && <Home setShowModal={setShowModal} />}
-      {pagina === 1 && <HomeLogado setPagina={setPagina} />}
+      {pagina === 1 && (
+        <HomeLogado
+          user={user != null ? user.uid : null}
+          setPagina={setPagina}
+        />
+      )}
       {pagina === 2 && (
         <CadastroHabito
           user={user}
