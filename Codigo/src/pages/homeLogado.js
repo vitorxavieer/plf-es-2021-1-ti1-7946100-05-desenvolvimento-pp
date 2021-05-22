@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react"
 import styled from "styled-components"
 import { palheta } from "../components/palheta"
 import * as Template from "../components/template"
-import { readDocsUmaCondicao } from "../utils/utils"
+import { readDocsUmaCondicao, removeDoc } from "../utils/utils"
 
 export const BodyPage = styled.div`
   background-color: ${() => palheta.background};
@@ -107,6 +107,8 @@ export const Navbar = styled.nav`
 
 function HabitoLinha(props) {
   const emojiRef = useRef(null)
+  const [feito, setFeito] = useState(false)
+  const [erros, setErros] = useState("")
   useEffect(() => {
     if (emojiRef.current) emojiRef.current.innerHTML = props.emoji
   }, [emojiRef])
@@ -124,7 +126,7 @@ function HabitoLinha(props) {
             {props.valor} {props.unidade}
             <i className="fa fa-plus"></i>
             <i className="fa fa-history"></i>
-            <i className="fa fa-trash"></i>
+            <i onClick={() => { if (window.confirm("Você deseja remover este hábito?"))removeDoc("habitos", props.id, setFeito, setErros) }} className="fa fa-trash"></i>
           </div>
         </Template.TextoDestaque>
       </div>
@@ -167,6 +169,7 @@ function HomeLogado(props) {
             unidade={e.unidade}
             nome={e.nome}
             emoji={e.emoji}
+            id={e.docId}
           />
         ))}
 
