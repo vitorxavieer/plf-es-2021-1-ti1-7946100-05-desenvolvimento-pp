@@ -7,6 +7,7 @@ import CadastroHabito from "./pages/cadastroHabito"
 import HomeLogado from "./pages/homeLogado"
 import Home from "./pages/home"
 import BarraSuperior from "./pages/BarraSuperior"
+import LoadingPage from "./pages/loadingPage"
 
 // const Telas = ["Home", "HomeLogado", "Cadastro de Hábitos", "Template"]
 
@@ -46,6 +47,7 @@ function App() {
 
   return (
     <AppDiv>
+      <LoadingPage/>
       <BarraSuperior
         showModal={showModal}
         setShowModal={setShowModal}
