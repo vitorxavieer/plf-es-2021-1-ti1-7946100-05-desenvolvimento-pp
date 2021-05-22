@@ -126,7 +126,7 @@ function HabitoLinha(props) {
             {props.valor} {props.unidade}
             <i className="fa fa-plus"></i>
             <i className="fa fa-history"></i>
-            <i onClick={() => { if (window.confirm("Você deseja remover este hábito?"))removeDoc("habitos", props.id, setFeito, setErros) }} className="fa fa-trash"></i>
+            <i onClick={() => { if (window.confirm("Você deseja remover este hábito?")) removeDoc("habitos", props.id,props.setFeito, setErros) }} className="fa fa-trash"></i>
           </div>
         </Template.TextoDestaque>
       </div>
@@ -144,7 +144,8 @@ function HabitoLinha(props) {
 // ]
 
 function HomeLogado(props) {
-  const [, setFeito] = useState([])
+  const [feito, setFeito] = useState([])
+  const [feitoremover, setFeitoremover] = useState(false)
   const [, setErros] = useState([])
   const [habitos, setHabitos] = useState([])
   useEffect(() => {
@@ -157,6 +158,18 @@ function HomeLogado(props) {
       setErros
     )
   }, [])
+  useEffect(() => {
+    if(feitoremover){readDocsUmaCondicao(
+      "habitos",
+      "user",
+      props.user,
+      setHabitos,
+      setFeito,
+      setErros
+    )
+    setFeitoremover(false)
+    }
+  }, [feitoremover])
   return (
     <BodyPage className="container">
       <main>
@@ -170,6 +183,7 @@ function HomeLogado(props) {
             nome={e.nome}
             emoji={e.emoji}
             id={e.docId}
+            setFeito={setFeitoremover}
           />
         ))}
 
