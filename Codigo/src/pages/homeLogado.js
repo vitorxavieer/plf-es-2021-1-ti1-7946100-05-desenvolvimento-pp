@@ -130,6 +130,7 @@ function HabitoLinha(props) {
                   nome: props.nome,
                   habitoId: props.habitoId,
                   emoji: props.emoji,
+                  unidade: props.unidade
                 })
                 props.setPagina(4)
               }}

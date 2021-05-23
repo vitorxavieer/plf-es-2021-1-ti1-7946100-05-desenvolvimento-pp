@@ -231,26 +231,28 @@ function HistoricoHabitos({ user, habito, setPagina }) {
           </Template.Emoji>
           {habito.nome}
         </Template.Header2>
-        <div className="lista-titulo">
-          <span style={{ width: "110px", textAlign: "center" }}>Data</span>
-          <span style={{ width: "40px" }}>Qtde</span>
-          <span style={{ width: "60px" }} />
-        </div>
 
         {feito && historico.length > 0 && (
-          <div className="lista-historico">
-            {historico
-              .sort((a, b) => a - b)
-              .map((e, i) => (
-                <CadaHistorico
-                  key={i}
-                  data={e.data}
-                  quantidade={e.quantidade}
-                  historicoHabitoId={e.docId}
-                  setFeitoRemover={setFeitoRemover}
-                />
-              ))}
-          </div>
+          <>
+            <div className="lista-titulo">
+              <span style={{ width: "120px", textAlign: "center" }}>Data</span>
+              <span style={{ width: "70px" }}>Qtde ({habito.unidade})</span>
+              <span style={{ width: "60px" }} />
+            </div>
+            <div className="lista-historico">
+              {historico
+                .sort((a, b) => a - b)
+                .map((e, i) => (
+                  <CadaHistorico
+                    key={i}
+                    data={e.data}
+                    quantidade={e.quantidade}
+                    historicoHabitoId={e.docId}
+                    setFeitoRemover={setFeitoRemover}
+                  />
+                ))}
+            </div>
+          </>
         )}
       </div>
       {!feito && (
