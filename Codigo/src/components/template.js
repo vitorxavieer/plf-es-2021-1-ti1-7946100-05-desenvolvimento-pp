@@ -209,7 +209,7 @@ export const Linha = styled.div`
 
 export function TextoDestaque(props) {
   return (
-    <TextoDestaqueDiv>
+    <TextoDestaqueDiv {...props}>
       <Body
         style={{
           margin: '0px',

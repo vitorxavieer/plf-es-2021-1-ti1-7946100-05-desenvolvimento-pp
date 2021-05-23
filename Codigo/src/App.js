@@ -7,6 +7,7 @@ import CadastroHabito from "./pages/cadastroHabito"
 import HomeLogado from "./pages/homeLogado"
 import Home from "./pages/home"
 import BarraSuperior from "./pages/BarraSuperior"
+import HistoricoHabitos from './pages/historicoHabito'
 
 // const Telas = ["Home", "HomeLogado", "Cadastro de Hábitos", "Template"]
 
@@ -23,6 +24,7 @@ function App() {
   const [user, setUser] = useState(null)
   const [showModal, setShowModal] = useState(false)
   const [habitoCadastrado, setHabitoCadastrado] = useState(false)
+  const [habitoSelecionado, setHabitoSelecionado] = useState(null)
   useEffect(() => {
     const unlisten = auth.onAuthStateChanged(authUser => {
       authUser ? setUser(authUser) : setUser(null)
@@ -57,6 +59,7 @@ function App() {
         <HomeLogado
           user={user != null ? user.uid : null}
           setPagina={setPagina}
+          setHabitoSelecionado={setHabitoSelecionado}
         />
       )}
       {pagina === 2 && (
@@ -67,6 +70,7 @@ function App() {
         />
       )}
       {pagina === 3 && <Template />}
+      {pagina === 4 && <HistoricoHabitos user={user != null ? user.uid : null} habito={habitoSelecionado} setPagina={setPagina}/>}
     </AppDiv>
   )
 }

@@ -2,12 +2,12 @@ import { useEffect, useState, useRef } from "react"
 import styled from "styled-components"
 import { palheta } from "../components/palheta"
 import * as Template from "../components/template"
-import { readDocsUmaCondicao } from "../utils/utils"
+import { readDocsUmaCondicao, removerDoc } from "../utils/utils"
 
 export const BodyPage = styled.div`
   background-color: ${() => palheta.background};
   padding: 30px;
-  min-height: 100%;
+  min-height: calc(100vh - 96px);
   max-width: 600px;
   margin: auto;
   box-shadow: ${() => palheta.bodyBoxShadow};
@@ -123,7 +123,17 @@ function HabitoLinha(props) {
             <i className="fa fa-minus"></i>
             {props.valor} {props.unidade}
             <i className="fa fa-plus"></i>
-            <i className="fa fa-history"></i>
+            <i
+              className="fa fa-history"
+              onClick={() => {
+                props.setHabitoSelecionado({
+                  nome: props.nome,
+                  habitoId: props.habitoId,
+                  emoji: props.emoji,
+                })
+                props.setPagina(4)
+              }}
+            ></i>
             <i className="fa fa-trash"></i>
           </div>
         </Template.TextoDestaque>
@@ -142,7 +152,7 @@ function HabitoLinha(props) {
 // ]
 
 function HomeLogado(props) {
-  const [, setFeito] = useState([])
+  const [feito, setFeito] = useState(false)
   const [, setErros] = useState([])
   const [habitos, setHabitos] = useState([])
   useEffect(() => {
@@ -167,8 +177,27 @@ function HomeLogado(props) {
             unidade={e.unidade}
             nome={e.nome}
             emoji={e.emoji}
+            habitoId={e.docId}
+            setHabitoSelecionado={props.setHabitoSelecionado}
+            setPagina={props.setPagina}
           />
         ))}
+
+        {feito && habitos.length === 0 && (
+          <Template.Body style={{ textAlign: "center" }}>
+            Ainda não tem nenhum hábito cadastrado 🙄
+          </Template.Body>
+        )}
+
+        {!feito && (
+          <Template.Body style={{ textAlign: "center" }}>
+            <div class="text-center">
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          </Template.Body>
+        )}
 
         <section className="End">
           <div className="Progresso" style={{ marginTop: "80px" }}>
