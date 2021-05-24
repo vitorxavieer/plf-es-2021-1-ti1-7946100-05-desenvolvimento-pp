@@ -70,7 +70,7 @@ function Home(props) {
           Cadastre hábitos pequenos, que se tornarão em precessos, e vão
           construir uma nova identidade
         </Template.Body>
-        <div className="BlocoConteudo">
+        <div className="B coConteudo">
           <Template.Emoji>🏃🏻‍♂️</Template.Emoji>
           <div className="TextoDestaque">
             <Template.TextoDestaque>Correr</Template.TextoDestaque>

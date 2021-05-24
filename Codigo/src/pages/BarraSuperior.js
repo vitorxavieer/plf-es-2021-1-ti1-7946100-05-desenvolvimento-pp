@@ -38,7 +38,7 @@ const Navbar = styled.nav`
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    a{
+    a {
       margin: 5px;
     }
   }
@@ -57,7 +57,21 @@ function BarraSuperior(props) {
   const [senha, setSenha] = useState("");
 
   const openModal = () => {
-    props.setShowModal((prev) => !prev);
+    {
+      props.setShowModal((prev) => !prev);
+    }
+  };
+
+  const openModalMaisOpcoesLogin = (e) => {
+    if (e == "Alterar minha senha") {
+      {
+        props.setShowModalAlterarSenha(true);
+      }
+    } else if (e == "Esqueci a senha") {
+      {
+        props.setShowModalEsqueciSenha(true);
+      }
+    }
   };
 
   console.log(erros);
@@ -93,7 +107,12 @@ function BarraSuperior(props) {
 
   return (
     <Navbar>
-      <img alt="GoHabit" className="Logo" src={LogoTIAW} onClick={() => props.setPagina(0)} />
+      <img
+        alt="GoHabit"
+        className="Logo"
+        src={LogoTIAW}
+        onClick={() => props.setPagina(0)}
+      />
       {!props.user && (
         <div>
           <Template.Input
@@ -119,6 +138,17 @@ function BarraSuperior(props) {
             showModal={props.showModal}
             setShowModal={props.setShowModal}
           />
+
+          <Modal
+            showModalEsqueciSenha={props.showModalEsqueciSenha}
+            setShowModalEsqueciSenha={props.setShowModalEsqueciSenha}
+          />
+
+          <Modal
+            showModalAlterarSenha={props.showModalAlterarSenha}
+            setShowModalAlterarSenha={props.setShowModalAlterarSenha}
+          />
+
           <div class="dropdown" id="div-dropdown-opcoesLogin">
             <Template.Link
               class="btn btn-secondary dropdown-toggle"
@@ -133,8 +163,7 @@ function BarraSuperior(props) {
                 <li key={i}>
                   <a
                     class="dropdown-item"
-                    onClick={() => console.log("a")}
-                    href="#ToDo"
+                    onClick={openModalMaisOpcoesLogin(e)}
                   >
                     {e}
                   </a>

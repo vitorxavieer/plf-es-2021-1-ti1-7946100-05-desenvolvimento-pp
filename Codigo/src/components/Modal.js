@@ -105,7 +105,67 @@ const ModalContent = styled.div`
   }
 `;
 
-export const Modal = ({ showModal, setShowModal }) => {
+const ModalBackgroundES = styled.div`
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  background-color: black;
+`;
+
+const ModalBackgroundAS = styled.div`
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  background-color: blue;
+`;
+
+const ModalWrapperAS = styled.div`
+  justify-content: flex-start;
+  display: flex-box;
+  flex-orientation: column;
+  width: 400px;
+  height: 250px;
+
+  z-index: 20;
+  border-radius: 10px;
+  color: black;
+  background: #f5f5f5;
+
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  div {
+    width: 400px;
+  }
+  .headerAlteraSenha {
+    align-self: flex-start;
+    justify-content: center;
+  }
+  form {
+    align-self: center;
+    div {
+      width: 400px;
+      align-items: center;
+      justify-content: center;
+    }
+    .btnEnviarAS {
+      padding: 10px;
+      font-size: 15px;
+    }
+  }
+`;
+
+export const Modal = ({
+  showModal,
+  setShowModal,
+  showModalEsqueciSenha,
+  setShowModalEsqueciSenha,
+  showModalAlterarSenha,
+  setShowModalAlterarSenha,
+}) => {
   const [nomeCadastro, setNomeCadastro] = useState("");
   const [emailCadastro, setEmailCadastro] = useState("");
   const [senhaCadastro, setSenhaCadastro] = useState("");
@@ -191,6 +251,72 @@ export const Modal = ({ showModal, setShowModal }) => {
             </ModalContent>
           </ModalWrapper>
         </Background>
+      ) : null}
+      {showModalEsqueciSenha ? (
+        <ModalBackgroundAS className="bgAS">
+          <ModalWrapperAS className="wrapper">
+            <div className="headerAlteraSenha">
+              <h4>Esqueci Minha Senha</h4>
+            </div>
+
+            <form>
+              <div className="emailAlterarSenha">
+                <Template.Label>Email: </Template.Label>
+                <Template.Input
+                  type="email"
+                  placeholder="Email"
+                ></Template.Input>
+              </div>
+              <div>
+                <Template.Button className="btnEnviarAS">
+                  Enviar
+                </Template.Button>
+              </div>
+            </form>
+          </ModalWrapperAS>
+        </ModalBackgroundAS>
+      ) : null}
+
+      {showModalAlterarSenha ? (
+        <ModalBackgroundAS className="bgAS">
+          <ModalWrapperAS className="wrapper">
+            <div className="headerAlteraSenha">
+              <h4>Alterar Senha</h4>
+            </div>
+
+            <form>
+              <div className="emailAlterarSenha">
+                <Template.Label>Digite seu email: </Template.Label>
+                <Template.Input
+                  type="email"
+                  placeholder="Email"
+                ></Template.Input>
+              </div>
+              <div className="senhaAtualAlterarSenha">
+                <Template.Label>Digite sua senha atual: </Template.Label>
+                <Template.Input
+                  type="password"
+                  placeholder="Senha Atual"
+                  autocomplete="off"
+                ></Template.Input>
+              </div>
+              <div className="novaSenhaAlterarSenha">
+                <Template.Label>Digite sua nova senha: </Template.Label>
+                <Template.Input
+                  type="password"
+                  placeholder="Nova Senha"
+                  autocomplete="off"
+                ></Template.Input>
+              </div>
+
+              <div>
+                <Template.Button className="btnEnviarAS">
+                  Enviar
+                </Template.Button>
+              </div>
+            </form>
+          </ModalWrapperAS>
+        </ModalBackgroundAS>
       ) : null}
     </>
   );
