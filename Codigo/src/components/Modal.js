@@ -1,22 +1,21 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { signUp } from "../utils/utils";
-import * as Template from "./template";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { signUp } from '../utils/utils';
+import * as Template from './template';
 
 const Background = styled.div`
-    width = 100%;
-    height = 100%;
-    background = rgba(0, 0, 0, 0.8);
-    position = fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
 `;
 const ModalWrapper = styled.div`
   display: flex;
-  flex-orientation: column;
+  flex-direction: column;
 
   width: 400px;
   height: 600px;
@@ -33,84 +32,79 @@ const ModalWrapper = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
 `;
-const ModalContent = styled.div`
 
-  form{
-  
-  width: 400px;
-  height: 590px;
-  position: relative;
-  align=self: flex-start;
+const ModalContent = styled.div`
+  form {
+    width: 400px;
+    height: 590px;
+    position: relative;
+    align-self: flex-start;
   }
-  
-  .modal-header{
+
+  .modal-header {
     align-self: flex-start;
     width: 100%;
     display: flex-box;
     align-items: center;
     justify-content: center;
-    color: #001F3F;
-    
-    
-}
-    .inpt {
-      justify-self: center;
-      display: flex-box;
-      align-items: center;
-      justify-content: center;
-    }
-    .modal-body{
-      position: relative;
+    color: #001f3f;
+  }
+  .inpt {
+    justify-self: center;
+    display: flex-box;
+    align-items: center;
+    justify-content: center;
+  }
 
-        width: 100%;
-        display:flex;
-        flex-direction: column;
-        align-self: center;
-        justify-content: space-between;
-        height:  400px;
-        
-        .inpt{
-          margin-left: 10px;
-          margin-bottom: 20px;
-            display:flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-    }
-    input{
-        border: 1px solid #F5F5F5;
-        box-shadow: 2px 2px 10px #D0D0D0, -10px -10px 10px #FFFFFF;
-        margin-left: 20px;
+  .modal-body {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: space-between;
+    height: 400px;
+  }
+  .inpt {
+    margin-left: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-    }
-    .modal-title{
-      position: relative;
-      left: 35px;
-    }
-    }
-    #btnEnviarCadastro{
-      padding: 10px;
-      color: #001F3F;
-      font-weight: bold;
-      font-size: 16px;
-      border: 0px;
+  input {
+    border: 1px solid #f5f5f5;
+    box-shadow: 2px 2px 10px #d0d0d0, -10px -10px 10px #ffffff;
+    margin-left: 20px;
+  }
 
-    }
-    #closeButton{
-      color: black;
-      padding: 10px;
-      position: relative;
-      left: 100px;
-    }
+  .modal-title {
+    position: relative;
+    left: 35px;
+  }
+
+  #btnEnviarCadastro {
+    padding: 10px;
+    color: #001f3f;
+    font-weight: bold;
+    font-size: 16px;
+    border: 0px;
+  }
+  #closeButton {
+    color: black;
+    padding: 10px;
+    position: relative;
+    left: 100px;
   }
 `;
 
 export const Modal = ({ showModal, setShowModal }) => {
-  const [nomeCadastro, setNomeCadastro] = useState("");
-  const [emailCadastro, setEmailCadastro] = useState("");
-  const [senhaCadastro, setSenhaCadastro] = useState("");
+  const [nomeCadastro, setNomeCadastro] = useState('');
+  const [emailCadastro, setEmailCadastro] = useState('');
+  const [senhaCadastro, setSenhaCadastro] = useState('');
   // const [confirmaSenhaCadastro, setConfirmaSenhaCadastro] = useState("");
-  const [, setErros] = useState("");
+  const [, setErros] = useState('');
   return (
     <>
       {showModal ? (
@@ -161,7 +155,7 @@ export const Modal = ({ showModal, setShowModal }) => {
                   <div className="confirma-senha">
                     <div className="inpt">
                       <label className="label">
-                        Confirme<br></br> a senha:{" "}
+                        Confirme<br></br> a senha:{' '}
                       </label>
                       <Template.Input
                         type="password"

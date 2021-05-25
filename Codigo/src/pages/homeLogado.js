@@ -1,8 +1,8 @@
-import { useEffect, useState, useRef } from "react"
-import styled from "styled-components"
-import { palheta } from "../components/palheta"
-import * as Template from "../components/template"
-import { readDocsUmaCondicao } from "../utils/utils"
+import { useEffect, useState, useRef } from 'react';
+import styled from 'styled-components';
+import { palheta } from '../components/palheta';
+import * as Template from '../components/template';
+import { readDocsUmaCondicao, createDoc } from '../utils/utils';
 
 export const BodyPage = styled.div`
   background-color: ${() => palheta.background};
@@ -18,6 +18,11 @@ export const BodyPage = styled.div`
     justify-content: space-between;
     margin-top: 30px;
     margin-bottom: 30px;
+  }
+  //Concluir Hábito -> Deixar transparente
+  .HabitoConcluido {
+    opacity: 0.3;
+    transition-duration: 0.5s;
   }
 
   .Emoji {
@@ -98,21 +103,43 @@ export const BodyPage = styled.div`
       margin-left: 4px;
     }
   }
-`
+`;
 
 export const Navbar = styled.nav`
   display: flex;
   justify-content: space-between;
-`
+`;
+
+function concluirHabito(habito) {
+  let btn = document.getElementById('btnCheck');
+  let habitoDiv = btn.parentNode;
+
+  btn
+    .onClick
+    // [X]Fazer Efeito de Transparência:
+    //habitoDiv.addClass('HabitoConcluido');
+    // [ ] Passar ele pro último lugar da lista:
+    // [ ] Criar Div de Hábitos Geral (que da um appendChild)
+    // [ ] Criar uma função de posicao dos habitos na pagina
+    //habitoDiv.setPosicao(totalHabitos.);
+    //Passar emoji para lista de concluídos (embaixo da barra de progresso)
+
+    //Alterar parâmetro de progresso da Barra
+    ();
+}
 
 function HabitoLinha(props) {
-  const emojiRef = useRef(null)
+  const emojiRef = useRef(null);
+  const [concluido, setConcluido] = useState(false);
+  const [valor, setValor] = useState(parseInt(props.valor));
+  const [feito, setFeito] = useState(false);
+  const [erros, setErros] = useState('');
   useEffect(() => {
-    if (emojiRef.current) emojiRef.current.innerHTML = props.emoji
-  }, [emojiRef])
+    if (emojiRef.current) emojiRef.current.innerHTML = props.emoji;
+  }, [emojiRef]);
 
   return (
-    <section className="Habito">
+    <section className={'Habito' + (concluido ? ' HabitoConcluido' : '')}>
       <Template.Emoji ref={emojiRef} className="Emoji">
         {props.emoji}
       </Template.Emoji>
@@ -120,19 +147,33 @@ function HabitoLinha(props) {
         <Template.TextoDestaque>
           <div className="Contador">
             <txt>{props.nome}</txt>
-            <i className="fa fa-minus"></i>
-            {props.valor} {props.unidade}
-            <i className="fa fa-plus"></i>
+            <i className="fa fa-minus" onClick={() => setValor(valor - 1)}></i>
+            {valor} {props.unidade}
+            <i className="fa fa-plus" onClick={() => setValor(valor + 1)}></i>
             <i className="fa fa-history"></i>
             <i className="fa fa-trash"></i>
           </div>
         </Template.TextoDestaque>
       </div>
-      <Template.Button className="CheckButton">
-        <i className="fa fa-check" style={{ fontSize: "24px" }}></i>
+      <Template.Button
+        className="CheckButton"
+        id="btnCheck"
+        onClick={() => {
+          props.setHabitoConcluido(props.habitoId);
+          setConcluido(!concluido);
+          let doc = {
+            data: new Date(),
+            habito: props.habitoId,
+            quantidade: valor,
+            user: props.user,
+          };
+          createDoc('historico_habito', doc, setFeito, setErros);
+        }}
+      >
+        <i className="fa fa-check" style={{ fontSize: '24px' }}></i>
       </Template.Button>
     </section>
-  )
+  );
 }
 
 // const Habitos = [
@@ -142,57 +183,82 @@ function HabitoLinha(props) {
 // ]
 
 function HomeLogado(props) {
-  const [, setFeito] = useState([])
-  const [, setErros] = useState([])
-  const [habitos, setHabitos] = useState([])
+  const [, setFeito] = useState([]);
+  const [, setErros] = useState([]);
+  const [habitoConcluido, setHabitoConcluido] = useState('');
+  const [habitos, setHabitos] = useState([]);
+  const [emojisConcluidos, setEmojisConcluidos] = useState([]);
   useEffect(() => {
     readDocsUmaCondicao(
-      "habitos",
-      "user",
+      'habitos',
+      'user',
       props.user,
       setHabitos,
       setFeito,
       setErros
-    )
-  }, [])
+    );
+  }, []);
+
+  useEffect(() => {
+    if (habitoConcluido !== '') {
+      let EmojisArray = emojisConcluidos;
+      habitos.map((e) => {
+        if (e.docId === habitoConcluido) {
+          e.concluido = true;
+          EmojisArray.push(e.emoji);
+        }
+      });
+      setEmojisConcluidos(EmojisArray);
+    }
+  }, [habitoConcluido]);
+  console.log(habitos);
+
   return (
     <BodyPage className="container">
       <main>
         <Template.Header1 className="Headers">Hábitos de Hoje</Template.Header1>
+        <div className="Habitos">
+          {habitos
+            .sort((a, b) => (a.concluido ? -1 : +1))
+            .map((e, i) => (
+              <HabitoLinha
+                habitoConcluido={habitoConcluido}
+                setHabitoConcluido={setHabitoConcluido}
+                habitoId={e.docId}
+                user={props.user}
+                key={i}
+                valor={e.meta}
+                unidade={e.unidade}
+                nome={e.nome}
+                emoji={e.emoji}
+              />
+            ))}
 
-        {habitos.map((e, i) => (
-          <HabitoLinha
-            key={i}
-            valor={e.meta}
-            unidade={e.unidade}
-            nome={e.nome}
-            emoji={e.emoji}
-          />
-        ))}
-
-        <section className="End">
-          <div className="Progresso" style={{ marginTop: "80px" }}>
-            <h4 className="Headers">Hoje</h4>
-            <Template.BarraDeProgresso valor={70}></Template.BarraDeProgresso>
-          </div>
-          <div className="Progresso">
-            <h4 className="Headers">Semana</h4>
-            <Template.BarraDeProgresso valor={30}></Template.BarraDeProgresso>
-          </div>
-          <div className="Submit">
-            <Template.Button
-              className="Button"
-              onClick={() => props.setPagina(2)}
-            >
-              Adicionar Hábito
-            </Template.Button>
-            <Template.Link>Acompanhamento</Template.Link>
-            <Template.Link>Mais Informações</Template.Link>
-          </div>
-        </section>
+          <section className="End">
+            <div className="Progresso" style={{ marginTop: '80px' }}>
+              <h4 className="Headers">Hoje</h4>
+              <Template.BarraDeProgresso valor={70}></Template.BarraDeProgresso>
+            </div>
+            <div className="EmojisConcluidos">
+              {emojisConcluidos.map((e, i) => (
+                <Template.Emoji key={i}>{e}</Template.Emoji>
+              ))}
+            </div>
+            <div className="Submit">
+              <Template.Button
+                className="Button"
+                onClick={() => props.setPagina(2)}
+              >
+                Adicionar Hábito
+              </Template.Button>
+              <Template.Link>Acompanhamento</Template.Link>
+              <Template.Link>Mais Informações</Template.Link>
+            </div>
+          </section>
+        </div>
       </main>
     </BodyPage>
-  )
+  );
 }
 
-export default HomeLogado
+export default HomeLogado;
