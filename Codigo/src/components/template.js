@@ -133,12 +133,10 @@ export const Emoji = styled.div`
 `;
 
 export const Card = styled.div`
-  width: 136px;
-  height: 136px;
+  min-width: 100px;
+  min-height: 100px;
   /* Background */
   background: ${() => palheta.background};
-  display: grid;
-  place-items: center;
 
   /* Drop shadow (dark) */
 

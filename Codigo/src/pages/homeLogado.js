@@ -25,8 +25,19 @@ export const BodyPage = styled.div`
     transition-duration: 0.5s;
   }
 
+  .EmojiHorario {
+    margin-bottom: -10px;
+    display: flex;
+    align-items: center;
+  }
+
   .Emoji {
     margin-left: 0px;
+  }
+
+  .Horario {
+    font-size: 24px;
+    font-weight: normal;
   }
 
   .NewInputs {
@@ -67,15 +78,26 @@ export const BodyPage = styled.div`
     margin: 30px;
   }
 
+  .ProgressoCard {
+    padding: 40px;
+    margin: 60px 0;
+  }
+
   .Progresso {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 30px 0;
   }
 
   .Progresso h3 {
     margin-right: 10px;
+  }
+
+  .EmojisConcluidos {
+    margin-top: -20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .Submit {
@@ -140,9 +162,14 @@ function HabitoLinha(props) {
 
   return (
     <section className={'Habito' + (concluido ? ' HabitoConcluido' : '')}>
-      <Template.Emoji ref={emojiRef} className="Emoji">
-        {props.emoji}
-      </Template.Emoji>
+      <div className="EmojiHorario">
+        <Template.Emoji ref={emojiRef} className="Emoji">
+          {props.emoji}
+        </Template.Emoji>
+        <Template.TextoDestaque>
+          <span className="Horario">{/* {props.horario} */}09:00</span>
+        </Template.TextoDestaque>
+      </div>
       <div className="NewInputs">
         <Template.TextoDestaque>
           <div className="Contador">
@@ -235,15 +262,20 @@ function HomeLogado(props) {
             ))}
 
           <section className="End">
-            <div className="Progresso" style={{ marginTop: '80px' }}>
-              <h4 className="Headers">Hoje</h4>
-              <Template.BarraDeProgresso valor={70}></Template.BarraDeProgresso>
-            </div>
-            <div className="EmojisConcluidos">
-              {emojisConcluidos.map((e, i) => (
-                <Template.Emoji key={i}>{e}</Template.Emoji>
-              ))}
-            </div>
+            <Template.Card className="ProgressoCard">
+              <div className="Progresso">
+                <h4 className="Headers">Hoje</h4>
+                <Template.BarraDeProgresso
+                  valor={70}
+                ></Template.BarraDeProgresso>
+                <span>70 %</span>
+              </div>
+              <div className="EmojisConcluidos">
+                {emojisConcluidos.map((e, i) => (
+                  <Template.Emoji key={i}>{e}</Template.Emoji>
+                ))}
+              </div>
+            </Template.Card>
             <div className="Submit">
               <Template.Button
                 className="Button"
