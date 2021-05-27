@@ -1,4 +1,6 @@
 import { db, auth } from "../config/firebase.config"
+import firebase from "firebase/app"
+require("firebase/firestore")
 
 export function updateDoc(colecao, valores, documento, setFeito, setErros) {
   setFeito(false)
@@ -6,7 +8,7 @@ export function updateDoc(colecao, valores, documento, setFeito, setErros) {
     .collection(colecao)
     .doc(documento)
     .set(valores)
-    .then(() => {
+    .then(doc => {
       console.log("Document successfully written!")
       setFeito(true)
     })
@@ -16,12 +18,13 @@ export function updateDoc(colecao, valores, documento, setFeito, setErros) {
     })
 }
 
-export function createDoc(colecao, valores, setFeito, setErros) {
+export function createDoc(colecao, valores, setFeito, setErros, setDoc) {
   return db
     .collection(colecao)
     .add(valores)
-    .then(() => {
+    .then(doc => {
       setFeito(true)
+      setDoc(doc.id)
       console.log("Document successfully written!")
     })
     .catch(error => {
@@ -125,6 +128,42 @@ export function readDocsDuasCondicoes(
     })
 }
 
+export async function readDocsDuasCondicoesData(
+  colecao,
+  propriedade1,
+  valorPropriedade1,
+  propriedade2,
+  valorPropriedade2,
+  setValores,
+  setFeito,
+  setErros
+) {
+
+  return await db
+    .collection(colecao)
+    .where(propriedade1, "==", valorPropriedade1)
+    .where(
+      propriedade2,
+      ">",
+      firebase.firestore.Timestamp.fromDate(valorPropriedade2)
+    )
+    .get()
+    .then(querySnapshot => {
+      let valoresRecebidos = []
+      querySnapshot.forEach(doc => {
+        // doc.data() is never undefined for query doc snapshots
+        // console.log(doc.id, "****** => ", doc.data())
+        valoresRecebidos.push({ ...doc.data(), docId: doc.id })
+      })
+      setValores(valoresRecebidos)
+      setFeito(true)
+    })
+    .catch(error => {
+      setErros(error)
+      console.log("Error getting document:", error)
+    })
+}
+
 export function login(email, password, setErros) {
   return auth
     .signInWithEmailAndPassword(email, password)
@@ -141,24 +180,27 @@ export function login(email, password, setErros) {
     })
 }
 
-export function signUp(email, password, setErros){
-    return auth.createUserWithEmailAndPassword(email, password)
-    .then((userCredential) => {
+export function signUp(email, password, setErros) {
+  return auth
+    .createUserWithEmailAndPassword(email, password)
+    .then(userCredential => {
       // Signed in
       // var user = userCredential.user;
     })
-    .catch((error) => {
+    .catch(error => {
       // var errorCode = error.code;
-      var errorMessage = error.message;
+      var errorMessage = error.message
       setErros(errorMessage)
-    });
+    })
 }
 
-
-export function logout(){
-    return auth.signOut().then(() => {
-        // Sign-out successful.
-      }).catch((error) => {
-        // An error happened.
-      });
+export function logout() {
+  return auth
+    .signOut()
+    .then(() => {
+      // Sign-out successful.
+    })
+    .catch(error => {
+      // An error happened.
+    })
 }

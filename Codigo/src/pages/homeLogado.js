@@ -1,8 +1,15 @@
-import { useEffect, useState, useRef } from 'react';
-import styled from 'styled-components';
-import { palheta } from '../components/palheta';
-import * as Template from '../components/template';
-import { readDocsUmaCondicao, createDoc } from '../utils/utils';
+import { useEffect, useState, useRef } from "react"
+import styled from "styled-components"
+import { palheta } from "../components/palheta"
+import * as Template from "../components/template"
+import {
+  readDocsUmaCondicao,
+  createDoc,
+  removeDoc,
+  readDocsDuasCondicoesData,
+} from "../utils/utils"
+import firebase from "firebase/app"
+require("firebase/firestore")
 
 export const BodyPage = styled.div`
   background-color: ${() => palheta.background};
@@ -11,6 +18,11 @@ export const BodyPage = styled.div`
   max-width: 600px;
   margin: auto;
   box-shadow: ${() => palheta.bodyBoxShadow};
+
+  .Habitos {
+    display: flex;
+    flex-direction: column;
+  }
 
   .Habito {
     display: flex;
@@ -125,16 +137,16 @@ export const BodyPage = styled.div`
       margin-left: 4px;
     }
   }
-`;
+`
 
 export const Navbar = styled.nav`
   display: flex;
   justify-content: space-between;
-`;
+`
 
 function concluirHabito(habito) {
-  let btn = document.getElementById('btnCheck');
-  let habitoDiv = btn.parentNode;
+  let btn = document.getElementById("btnCheck")
+  let habitoDiv = btn.parentNode
 
   btn
     .onClick
@@ -147,33 +159,92 @@ function concluirHabito(habito) {
     //Passar emoji para lista de concluídos (embaixo da barra de progresso)
 
     //Alterar parâmetro de progresso da Barra
-    ();
+    ()
+}
+
+const HabitoLinhaStyled = styled.section`
+  order: ${props => props.ordem};
+`
+
+const changeDateformat = data => {
+  let hour = data?.toDate().getHours() ?? 0
+  hour = hour < 10 ? "0" + hour : hour
+  let minute = data?.toDate().getMinutes() ?? 0
+  minute = minute < 10 ? "0" + minute : minute
+  return hour + ":" + minute
+}
+
+const getHourAndMinute = data => {
+  let hourInMinutes = (data?.toDate()?.getHours() ?? 0) * 60
+  let minute = data?.toDate()?.getMinutes() ?? 0
+  return hourInMinutes + minute
 }
 
 function HabitoLinha(props) {
-  const emojiRef = useRef(null);
-  const [concluido, setConcluido] = useState(false);
-  const [valor, setValor] = useState(parseInt(props.valor));
-  const [feito, setFeito] = useState(false);
-  const [erros, setErros] = useState('');
+  const emojiRef = useRef(null)
+  const [concluido, setConcluido] = useState(props.concluido)
+  const [ordem, setOrdem] = useState(
+    props.concluido ? props.ordem + 100 : props.ordem
+  )
+  const [historicoHabitoDoc, setHistoricoHabitoDoc] = useState(
+    props.concluidoId
+  )
+  const [fetchHistorico, setFetchHistorico] = useState(false)
+  const [feitoRemover, setFeitoRemover] = useState(false)
+  const [valor, setValor] = useState(parseInt(props.valor))
+  const [feito, setFeito] = useState(false)
+  const [erros, setErros] = useState("")
+
   useEffect(() => {
-    if (emojiRef.current) emojiRef.current.innerHTML = props.emoji;
-  }, [emojiRef]);
+    if (emojiRef.current) emojiRef.current.innerHTML = props.emoji
+  }, [emojiRef])
+
+  useEffect(() => {
+    if (fetchHistorico && historicoHabitoDoc !== "") {
+      setFetchHistorico(false)
+
+      let habitosConcluidosAtualizado = []
+      props.habitosConcluidos.map(e => {
+        habitosConcluidosAtualizado.push(e)
+      })
+      habitosConcluidosAtualizado.push({
+        docId: historicoHabitoDoc,
+        habito: props.habitoId,
+      })
+      props.setHabitosConcluidos(habitosConcluidosAtualizado)
+      props.setAtualizarHabitoLinha(true)
+    }
+  }, [historicoHabitoDoc])
+
+  useEffect(() => {
+    if (feitoRemover) {
+      let habitosConcluidosAtualizado = []
+      props.habitosConcluidos.map(e => {
+        if (e.docId !== historicoHabitoDoc) habitosConcluidosAtualizado.push(e)
+      })
+      props.setHabitosConcluidos(habitosConcluidosAtualizado)
+      setFeitoRemover(false)
+      props.setAtualizarHabitoLinha(true)
+    }
+  }, [feitoRemover])
 
   return (
-    <section className={'Habito' + (concluido ? ' HabitoConcluido' : '')}>
+    <HabitoLinhaStyled
+      ordem={ordem}
+      className={"Habito" + (concluido ? " HabitoConcluido" : "")}
+    >
       <div className="EmojiHorario">
         <Template.Emoji ref={emojiRef} className="Emoji">
           {props.emoji}
         </Template.Emoji>
         <Template.TextoDestaque>
-          <span className="Horario">{/* {props.horario} */}09:00</span>
+          <span className="Horario">{changeDateformat(props.horario)}</span>
         </Template.TextoDestaque>
       </div>
       <div className="NewInputs">
         <Template.TextoDestaque>
           <div className="Contador">
-            <txt>{props.nome}</txt>
+            {props.nome}
             <i className="fa fa-minus" onClick={() => setValor(valor - 1)}></i>
             {valor} {props.unidade}
             <i className="fa fa-plus" onClick={() => setValor(valor + 1)}></i>
@@ -185,22 +256,40 @@ function HabitoLinha(props) {
       <Template.Button
         className="CheckButton"
         id="btnCheck"
+        disabled={fetchHistorico}
         onClick={() => {
-          props.setHabitoConcluido(props.habitoId);
-          setConcluido(!concluido);
-          let doc = {
-            data: new Date(),
-            habito: props.habitoId,
-            quantidade: valor,
-            user: props.user,
-          };
-          createDoc('historico_habito', doc, setFeito, setErros);
+          setConcluido(!concluido)
+          setOrdem(ordem > 100 ? ordem - 100 : 100 + ordem)
+          if (!concluido) {
+            // props.setHabitoConcluido(props.habitoId)
+            let doc = {
+              data: firebase.firestore.Timestamp.fromDate(new Date()),
+              habito: props.habitoId,
+              quantidade: valor,
+              user: props.user,
+            }
+            setFetchHistorico(true)
+            createDoc(
+              "historico_habito",
+              doc,
+              setFeito,
+              setErros,
+              setHistoricoHabitoDoc
+            )
+          } else {
+            removeDoc(
+              "historico_habito",
+              historicoHabitoDoc,
+              setFeitoRemover,
+              setErros
+            )
+          }
         }}
       >
-        <i className="fa fa-check" style={{ fontSize: '24px' }}></i>
+        <i className="fa fa-check" style={{ fontSize: "24px" }}></i>
       </Template.Button>
-    </section>
-  );
+    </HabitoLinhaStyled>
+  )
 }
 
 // const Habitos = [
@@ -209,88 +298,185 @@ function HabitoLinha(props) {
 //   { valor: 2, unidade: "Hr", nome: "Estudar", emoji: "📝" },
 // ]
 
-function HomeLogado(props) {
-  const [, setFeito] = useState([]);
-  const [, setErros] = useState([]);
-  const [habitoConcluido, setHabitoConcluido] = useState('');
-  const [habitos, setHabitos] = useState([]);
-  const [emojisConcluidos, setEmojisConcluidos] = useState([]);
+function EmojiOnBar(props) {
+  const emojiRef = useRef(null)
   useEffect(() => {
-    readDocsUmaCondicao(
-      'habitos',
-      'user',
-      props.user,
-      setHabitos,
-      setFeito,
-      setErros
-    );
-  }, []);
+    if (emojiRef.current) emojiRef.current.innerHTML = props.emoji
+  }, [emojiRef])
+
+  return (
+    <Template.Emoji ref={emojiRef} key={props.key}>
+      {props.emoji}
+    </Template.Emoji>
+  )
+}
+
+function EmojiList(props) {
+  return props.habitos.map((e, i) => <EmojiOnBar key={i} emoji={e.emoji} />)
+}
+
+function HomeLogado(props) {
+  const [feitoLerHabito, setFeitoLerHabitos] = useState(false)
+  const [feitoLerHistorico, setFeitoLerHistorico] = useState(false)
+  const [carregarHabitos, setCarregarHabitos] = useState(false)
+  const [, setErros] = useState([])
+  const [habitosConcluidos, setHabitosConcluidos] = useState([])
+  const [habitos, setHabitos] = useState([])
+  const [atualizarHabitoLinha, setAtualizarHabitoLinha] = useState(false)
+
+  function atualizarHabitosComCocluidos() {
+    let habitosAtualizados = []
+    let habitoFoiConcluido
+    habitos.map(f => {
+      habitoFoiConcluido = false
+      habitosConcluidos.map(e => {
+        if (f.docId === e.habito && !habitoFoiConcluido) {
+          habitoFoiConcluido = true
+          habitosAtualizados.push({
+            ...f,
+            concluido: true,
+            quantidade: e.quantidade,
+            concluidoId: e.docId,
+          })
+        }
+      })
+      if (!habitoFoiConcluido) {
+        let atualizarHabito = f
+        if (f.concluido) f.concluido = false
+        habitosAtualizados.push(f)
+      }
+    })
+    setHabitos(habitosAtualizados)
+    setCarregarHabitos(true)
+  }
 
   useEffect(() => {
-    if (habitoConcluido !== '') {
-      let EmojisArray = emojisConcluidos;
-      habitos.map((e) => {
-        if (e.docId === habitoConcluido) {
-          e.concluido = true;
-          EmojisArray.push(e.emoji);
-        }
-      });
-      setEmojisConcluidos(EmojisArray);
+    readDocsUmaCondicao(
+      "habitos",
+      "user",
+      props.user,
+      setHabitos,
+      setFeitoLerHabitos,
+      setErros
+    )
+
+    let dateA = new Date()
+
+    let data = new Date(
+      dateA.getFullYear(),
+      dateA.getMonth(),
+      dateA.getDate(),
+      0,
+      0,
+      0
+    )
+
+    readDocsDuasCondicoesData(
+      "historico_habito",
+      "user",
+      props.user,
+      "data",
+      data,
+      setHabitosConcluidos,
+      setFeitoLerHistorico,
+      setErros
+    )
+  }, [])
+
+  useEffect(() => {
+    if (feitoLerHabito && feitoLerHistorico) {
+      atualizarHabitosComCocluidos()
     }
-  }, [habitoConcluido]);
-  console.log(habitos);
+  }, [habitosConcluidos, feitoLerHistorico, feitoLerHabito])
+
+  useEffect(() => {
+    if (atualizarHabitoLinha) {
+      atualizarHabitosComCocluidos()
+      setAtualizarHabitoLinha(false)
+    }
+  }, [atualizarHabitoLinha])
+
+  console.log("habitosConcluidos", habitosConcluidos)
+  console.log("habitos", habitos)
 
   return (
     <BodyPage className="container">
       <main>
         <Template.Header1 className="Headers">Hábitos de Hoje</Template.Header1>
-        <div className="Habitos">
-          {habitos
-            .sort((a, b) => (a.concluido ? -1 : +1))
-            .map((e, i) => (
-              <HabitoLinha
-                habitoConcluido={habitoConcluido}
-                setHabitoConcluido={setHabitoConcluido}
-                habitoId={e.docId}
-                user={props.user}
-                key={i}
-                valor={e.meta}
-                unidade={e.unidade}
-                nome={e.nome}
-                emoji={e.emoji}
-              />
-            ))}
 
-          <section className="End">
-            <Template.Card className="ProgressoCard">
-              <div className="Progresso">
-                <h4 className="Headers">Hoje</h4>
-                <Template.BarraDeProgresso
-                  valor={70}
-                ></Template.BarraDeProgresso>
-                <span>70 %</span>
+        {!carregarHabitos  && (
+          <Template.Body style={{ textAlign: "center" }}>
+            <div class="text-center">
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
               </div>
-              <div className="EmojisConcluidos">
-                {emojisConcluidos.map((e, i) => (
-                  <Template.Emoji key={i}>{e}</Template.Emoji>
-                ))}
-              </div>
-            </Template.Card>
-            <div className="Submit">
-              <Template.Button
-                className="Button"
-                onClick={() => props.setPagina(2)}
-              >
-                Adicionar Hábito
-              </Template.Button>
-              <Template.Link>Acompanhamento</Template.Link>
-              <Template.Link>Mais Informações</Template.Link>
             </div>
-          </section>
-        </div>
+          </Template.Body>
+        )
+        }
+
+        {carregarHabitos && habitos.length === 0 && (
+          <Template.Body style={{ textAlign: "center" }}>
+            Ainda não tem nenhum hábito cadastrado 🙄
+          </Template.Body>
+        )}
+
+        {carregarHabitos && habitos.length > 0 && (
+          <div className="Habitos">
+            {habitos
+              .sort((a, b) =>
+                getHourAndMinute(a["horário"]) < getHourAndMinute(b["horário"])
+                  ? -1
+                  : +1
+              )
+              .map((e, i) => (
+                <HabitoLinha
+                  habitosConcluidos={habitosConcluidos}
+                  setHabitosConcluidos={setHabitosConcluidos}
+                  setAtualizarHabitoLinha={setAtualizarHabitoLinha}
+                  concluido={e.concluido ?? false}
+                  concluidoId={e.concluidoId ?? ""}
+                  habitoId={e.docId}
+                  user={props.user}
+                  key={i}
+                  valor={e.meta}
+                  unidade={e.unidade}
+                  horario={e["horário"]}
+                  nome={e.nome}
+                  emoji={e.emoji}
+                  ordem={i + 1}
+                />
+              ))}
+          </div>
+        )}
+
+        <section className="End">
+          <Template.Card className="ProgressoCard">
+            <div className="Progresso">
+              <h4 className="Headers">Hoje</h4>
+              <Template.BarraDeProgresso
+                valor={(habitosConcluidos.length / habitos.length) * 100}
+              ></Template.BarraDeProgresso>
+              <span>{Math.round((habitosConcluidos.length / habitos.length) * 100)} %</span>
+            </div>
+            <div className="EmojisConcluidos">
+              <EmojiList habitos={habitos.filter(e => e.concluido)} />
+            </div>
+          </Template.Card>
+          <div className="Submit">
+            <Template.Button
+              className="Button"
+              onClick={() => props.setPagina(2)}
+            >
+              Adicionar Hábito
+            </Template.Button>
+            <Template.Link>Acompanhamento</Template.Link>
+            <Template.Link>Mais Informações</Template.Link>
+          </div>
+        </section>
       </main>
     </BodyPage>
-  );
+  )
 }
 
-export default HomeLogado;
+export default HomeLogado
