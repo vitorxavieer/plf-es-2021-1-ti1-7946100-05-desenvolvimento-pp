@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { login, logout } from "../utils/utils";
 import { palheta } from "../components/palheta";
 import { Modal } from "../components/Modal";
+import { ModalAS } from "../components/ModalAlterarSenha";
+import { ModalES } from "../components/ModalEsqueciSenha";
 import LogoTIAW from "../assets/LogoTIAW.png";
 
 const Navbar = styled.nav`
@@ -55,22 +57,20 @@ function BarraSuperior(props) {
   const [erros, setErros] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [mmo, setmmo] = useState("");
+
+  const menuMaisOpcoes = (mmo) => {
+    if (mmo == "Alterar minha senha") {
+      props.setShowModalEsqueciSenha((prev) => !prev);
+    }
+    if (mmo == "Esqueci a senha") {
+      props.setShowModalAlterarSenha((prev) => !prev);
+    }
+  };
 
   const openModal = () => {
     {
       props.setShowModal((prev) => !prev);
-    }
-  };
-
-  const openModalMaisOpcoesLogin = (e) => {
-    if (e == "Alterar minha senha") {
-      {
-        props.setShowModalAlterarSenha(true);
-      }
-    } else if (e == "Esqueci a senha") {
-      {
-        props.setShowModalEsqueciSenha(true);
-      }
     }
   };
 
@@ -139,12 +139,12 @@ function BarraSuperior(props) {
             setShowModal={props.setShowModal}
           />
 
-          <Modal
+          <ModalES
             showModalEsqueciSenha={props.showModalEsqueciSenha}
             setShowModalEsqueciSenha={props.setShowModalEsqueciSenha}
           />
 
-          <Modal
+          <ModalAS
             showModalAlterarSenha={props.showModalAlterarSenha}
             setShowModalAlterarSenha={props.setShowModalAlterarSenha}
           />
@@ -163,7 +163,10 @@ function BarraSuperior(props) {
                 <li key={i}>
                   <a
                     class="dropdown-item"
-                    onClick={openModalMaisOpcoesLogin(e)}
+                    onClick={() => {
+                      setmmo(e);
+                      menuMaisOpcoes(mmo);
+                    }}
                   >
                     {e}
                   </a>

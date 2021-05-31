@@ -176,92 +176,68 @@ const ModalWrapperAS = styled.div`
   }
 `;
 
-export const Modal = ({ showModal, setShowModal }) => {
-  const [nomeCadastro, setNomeCadastro] = useState("");
+export const ModalAS = ({
+  showModalAlterarSenha,
+  setShowModalAlterarSenha,
+}) => {
   const [emailCadastro, setEmailCadastro] = useState("");
   const [senhaCadastro, setSenhaCadastro] = useState("");
   // const [confirmaSenhaCadastro, setConfirmaSenhaCadastro] = useState("");
   const [, setErros] = useState("");
   return (
     <>
-      {showModal ? (
-        <Background>
-          <ModalWrapper showModal={showModal}>
-            <ModalContent>
-              <form>
-                <div className="modal-header">
-                  <h3 className="modal-title">Cadastro</h3>
-                  <Template.Button
-                    onClick={() => setShowModal(false)}
-                    className="closeButton"
-                  >
-                    X
-                  </Template.Button>
-                </div>
-                <div className="modal-body">
-                  <div className="nome">
-                    <div className="inpt">
-                      <label className="label">Nome: </label>
-                      <Template.Input
-                        onChange={(e) => setNomeCadastro(e.target.value)}
-                        type="text"
-                        placeholder="Nome completo"
-                      ></Template.Input>
-                    </div>
-                  </div>
-                  <div className="email">
-                    <div className="inpt">
-                      <label className="label">Email: </label>
-                      <Template.Input
-                        onChange={(e) => setEmailCadastro(e.target.value)}
-                        type="email"
-                        placeholder="Email"
-                      ></Template.Input>
-                    </div>
-                  </div>
-                  <div className="senha">
-                    <div className="inpt">
-                      <label className="label">Senha: </label>
-                      <Template.Input
-                        onChange={(e) => setSenhaCadastro(e.target.value)}
-                        type="password"
-                        placeholder="Senha"
-                      ></Template.Input>
-                    </div>
-                  </div>
-                  <div className="confirma-senha">
-                    <div className="inpt">
-                      <label className="label">
-                        Confirme<br></br> a senha:{" "}
-                      </label>
-                      <Template.Input
-                        type="password"
-                        placeholder="Confirme a senha"
-                        onChange={
-                          (e) => null
-                          // setConfirmaSenhaCadastro(e.target.value)
-                        }
-                      ></Template.Input>
-                    </div>
-                  </div>
+      {showModalAlterarSenha ? (
+        <ModalBackgroundAS className="bgAS">
+          <ModalWrapperAS
+            showModalAlterarSenha={showModalAlterarSenha}
+            className="wrapper"
+          >
+            <div className="headerAlteraSenha">
+              <h4>Alterar Senha</h4>
+              <Template.Button
+                onClick={() => {
+                  setShowModalAlterarSenha();
+                }}
+                className="closeButton"
+                id="closeBtnAS"
+              >
+                X
+              </Template.Button>
+            </div>
 
-                  <div className="btnSubmit">
-                    <div className="inpt">
-                      <Template.Button
-                        onClick={() =>
-                          signUp(emailCadastro, senhaCadastro, setErros)
-                        }
-                        id="btnEnviarCadastro"
-                      >
-                        Enviar
-                      </Template.Button>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </ModalContent>
-          </ModalWrapper>
-        </Background>
+            <form>
+              <div className="emailAlterarSenha">
+                <Template.Label>Digite seu email: </Template.Label>
+                <Template.Input
+                  type="email"
+                  placeholder="Email"
+                ></Template.Input>
+              </div>
+              <div className="senhaAtualAlterarSenha">
+                <Template.Label>Digite sua senha atual: </Template.Label>
+                <Template.Input
+                  type="password"
+                  placeholder="Senha Atual"
+                  autocomplete="off"
+                ></Template.Input>
+              </div>
+              <div className="novaSenhaAlterarSenha">
+                <Template.Label>Digite sua nova senha: </Template.Label>
+                <Template.Input
+                  type="password"
+                  placeholder="Nova Senha"
+                  autocomplete="off"
+                ></Template.Input>
+              </div>
+
+              <div>
+                <Template.Button className="btnEnviarAS">
+                  Enviar
+                </Template.Button>
+              </div>
+            </form>
+          </ModalWrapperAS>
+        </ModalBackgroundAS>
       ) : null}
     </>
   );
