@@ -144,9 +144,13 @@ export const Card = styled.div`
   border-radius: 10px;
 
   /* Text Styles */
+  font-family: Work Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 15px;
+  letter-spacing: -0.02em;
   color: ${() => palheta.text};
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 700;
 `;
 
 export const Label = styled.label`
@@ -256,11 +260,10 @@ export const Logo = styled.h1`
 `;
 
 export const BarraDeProgresso = styled.div`
-  max-width: 240px;
+  max-width: 440px;
   width: 100%;
   min-width: 120px;
   height: 30px;
-  margin-left: 20px;
 
   /* Rectangle 17 */
   background: linear-gradient(
