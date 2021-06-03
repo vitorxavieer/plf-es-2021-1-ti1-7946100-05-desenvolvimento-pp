@@ -100,8 +100,8 @@ export const BodyPage = styled.div`
 
   .ProgressoCard {
     padding: 24px;
-    padding-bottom: 24px;
-    margin: 60px 0;
+    padding-bottom: 32px;
+    margin: 40px 0;
   }
 
   .ProgressoTitulo {
@@ -115,16 +115,11 @@ export const BodyPage = styled.div`
     align-items: center;
   }
 
-  .Porcentagem {
-    margin-left: 20px;
-    font-size: 18px;
-  }
-
   .EmojisConcluidos {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 8px;
+    margin-top: 16px;
   }
 
   .Submit {
@@ -474,21 +469,24 @@ function HomeLogado(props) {
         )}
 
         <section className="End">
-          <Template.Card className="ProgressoCard">
+          <div className="ProgressoCard">
+            <h3 className="ProgressoDia"></h3>
             <h4 className="ProgressoTitulo">
               {Math.round((habitosConcluidos.length / habitos.length) * 100)} %
               Completo
             </h4>
             <div className="Progresso">
-              <Template.BarraDeProgresso
-                //Alterar parâmetro de progresso da Barra
-                valor={(habitosConcluidos.length / habitos.length) * 100}
-              ></Template.BarraDeProgresso>
+              <Template.BarraDeProgressoVazia>
+                <Template.BarraDeProgressoCompleta
+                  //Alterar parâmetro de progresso da Barra
+                  valor={(habitosConcluidos.length / habitos.length) * 100}
+                ></Template.BarraDeProgressoCompleta>
+              </Template.BarraDeProgressoVazia>
             </div>
             <div className="EmojisConcluidos">
               <EmojiList habitos={habitos.filter((e) => e.concluido)} />
             </div>
-          </Template.Card>
+          </div>
           <div className="Submit">
             <Template.Button
               className="Button"

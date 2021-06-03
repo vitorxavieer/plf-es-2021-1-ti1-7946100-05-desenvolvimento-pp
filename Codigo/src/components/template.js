@@ -259,24 +259,33 @@ export const Logo = styled.h1`
   text-shadow: -2px -2px 3px #ffff6a, 2px 2px 3px #776a22;
 `;
 
-export const BarraDeProgresso = styled.div`
+export const BarraDeProgressoVazia = styled.div`
   max-width: 440px;
   width: 100%;
   min-width: 120px;
   height: 30px;
 
   /* Rectangle 17 */
-  background: linear-gradient(
-    90deg,
-    #72bc83 0%,
-    #72bc83 ${(props) => props.valor - 0.1}%,
-    #afaaaa ${(props) => props.valor}%,
-    #afaaaa 107.3%
-  );
+  background: linear-gradient(90deg, #afaaaa);
   /* Drop shadow (dark) */
 
   box-shadow: ${() => palheta.boxDropShadow};
   border-radius: 5px;
+`;
+
+export const BarraDeProgressoCompleta = styled.div`
+  max-width: 440px;
+  width: ${(props) => props.valor}%;
+  height: 30px;
+
+  /* Rectangle 17 */
+  background: ${() => palheta.textImportant};
+
+  box-shadow: ${() => palheta.boxDropShadow};
+  border-radius: 5px;
+
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition: width 0.5s;
 `;
 
 const Quadrado2 = styled.div`
@@ -323,7 +332,9 @@ function Template() {
           <Emoji style={{ margin: '20px' }}>😉</Emoji>
         </div>
         <NewInputs placeholder="Input Alternativo" />
-        <BarraDeProgresso valor={72} />
+        <BarraDeProgressoVazia>
+          <BarraDeProgressoCompleta valor={72} />
+        </BarraDeProgressoVazia>
       </div>
       <div className="colors-parte">
         <Header2>Colors</Header2>
