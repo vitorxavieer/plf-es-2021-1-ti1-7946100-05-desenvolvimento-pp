@@ -61,10 +61,14 @@ function BarraSuperior(props) {
 
   const menuMaisOpcoes = (mmo) => {
     if (mmo == "Alterar minha senha") {
-      props.setShowModalEsqueciSenha((prev) => !prev);
+      props.setShowModalAlterarSenha((prev) => !prev);
+
+      setmmo("");
     }
     if (mmo == "Esqueci a senha") {
-      props.setShowModalAlterarSenha((prev) => !prev);
+      props.setShowModalEsqueciSenha((prev) => !prev);
+
+      setmmo("");
     }
   };
 
