@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Icon from './logo'
 import { palheta } from './palheta';
 
 export const Header1 = styled.h1`
@@ -323,6 +324,7 @@ function Template() {
         </div>
         <NewInputs placeholder="Input Alternativo" />
         <BarraDeProgresso valor={72} />
+        <Icon/>
       </div>
       <div className="colors-parte">
         <Header2>Colors</Header2>
