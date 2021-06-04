@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react"
 import styled from "styled-components"
 import { palheta } from "../components/palheta"
 import * as Template from "../components/template"
-import { readDocsUmaCondicao, removerDoc } from "../utils/utils"
+import { readDocsUmaCondicao, removeDoc } from "../utils/utils"
 
 export const BodyPage = styled.div`
   background-color: ${() => palheta.background};
@@ -107,6 +107,8 @@ export const Navbar = styled.nav`
 
 function HabitoLinha(props) {
   const emojiRef = useRef(null)
+  const [feito, setFeito] = useState(false)
+  const [erros, setErros] = useState("")
   useEffect(() => {
     if (emojiRef.current) emojiRef.current.innerHTML = props.emoji
   }, [emojiRef])
@@ -135,7 +137,7 @@ function HabitoLinha(props) {
                 props.setPagina(4)
               }}
             ></i>
-            <i className="fa fa-trash"></i>
+            <i onClick={() => { if (window.confirm("Você deseja remover este hábito?")) removeDoc("habitos", props.habitoId,props.setFeito, setErros) }} className="fa fa-trash"></i>
           </div>
         </Template.TextoDestaque>
       </div>
@@ -154,6 +156,7 @@ function HabitoLinha(props) {
 
 function HomeLogado(props) {
   const [feito, setFeito] = useState(false)
+  const [feitoremover, setFeitoremover] = useState(false)
   const [, setErros] = useState([])
   const [habitos, setHabitos] = useState([])
   useEffect(() => {
@@ -166,6 +169,18 @@ function HomeLogado(props) {
       setErros
     )
   }, [])
+  useEffect(() => {
+    if(feitoremover){readDocsUmaCondicao(
+      "habitos",
+      "user",
+      props.user,
+      setHabitos,
+      setFeito,
+      setErros
+    )
+    setFeitoremover(false)
+    }
+  }, [feitoremover])
   return (
     <BodyPage className="container">
       <main>
@@ -181,6 +196,7 @@ function HomeLogado(props) {
             habitoId={e.docId}
             setHabitoSelecionado={props.setHabitoSelecionado}
             setPagina={props.setPagina}
+            setFeito={setFeitoremover}
           />
         ))}
 
