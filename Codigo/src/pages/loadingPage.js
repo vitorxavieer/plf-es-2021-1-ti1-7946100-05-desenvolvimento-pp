@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import Logo from "../components/logo"
 import { palheta } from "../components/palheta"
+import { useEffect, useState } from "react"
 
 const Container = styled.div`
 position: absolute;
@@ -22,19 +23,21 @@ animation: 1s linear 4s entrance_logo both;
     }
     to {
         opacity: 0;
-      display: none;
+        display: none;
     }
   }
 `
 
 function LoadingPage() {
-  return (
+  const [showDiv, setShowDiv] = useState(true)
+  useEffect(() => setTimeout(() => setShowDiv(false), 5000), [])
+  return showDiv ? (
     <Container>
       <div className="inside-div">
         <Logo />
       </div>
     </Container>
-  )
+  ) : null
 }
 
 export default LoadingPage
