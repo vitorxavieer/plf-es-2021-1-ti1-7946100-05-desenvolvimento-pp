@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { login, logout } from "../utils/utils";
 import { palheta } from "../components/palheta";
 import { Modal } from "../components/Modal";
+import { ModalAS } from "../components/ModalAlterarSenha";
+import { ModalES } from "../components/ModalEsqueciSenha";
 import LogoTIAW from "../assets/LogoTIAW.png";
 
 const Navbar = styled.nav`
@@ -38,7 +40,7 @@ const Navbar = styled.nav`
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    a{
+    a {
       margin: 5px;
     }
   }
@@ -55,9 +57,25 @@ function BarraSuperior(props) {
   const [erros, setErros] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [mmo, setmmo] = useState("");
+
+  const menuMaisOpcoes = (mmo) => {
+    if (mmo == "Alterar minha senha") {
+      props.setShowModalAlterarSenha((prev) => !prev);
+
+      setmmo("");
+    }
+    if (mmo == "Esqueci a senha") {
+      props.setShowModalEsqueciSenha((prev) => !prev);
+
+      setmmo("");
+    }
+  };
 
   const openModal = () => {
-    props.setShowModal((prev) => !prev);
+    {
+      props.setShowModal((prev) => !prev);
+    }
   };
 
   console.log(erros);
@@ -93,7 +111,12 @@ function BarraSuperior(props) {
 
   return (
     <Navbar>
-      <img alt="GoHabit" className="Logo" src={LogoTIAW} onClick={() => props.setPagina(0)} />
+      <img
+        alt="GoHabit"
+        className="Logo"
+        src={LogoTIAW}
+        onClick={() => props.setPagina(0)}
+      />
       {!props.user && (
         <div>
           <Template.Input
@@ -119,6 +142,17 @@ function BarraSuperior(props) {
             showModal={props.showModal}
             setShowModal={props.setShowModal}
           />
+
+          <ModalES
+            showModalEsqueciSenha={props.showModalEsqueciSenha}
+            setShowModalEsqueciSenha={props.setShowModalEsqueciSenha}
+          />
+
+          <ModalAS
+            showModalAlterarSenha={props.showModalAlterarSenha}
+            setShowModalAlterarSenha={props.setShowModalAlterarSenha}
+          />
+
           <div class="dropdown" id="div-dropdown-opcoesLogin">
             <Template.Link
               class="btn btn-secondary dropdown-toggle"
@@ -133,8 +167,10 @@ function BarraSuperior(props) {
                 <li key={i}>
                   <a
                     class="dropdown-item"
-                    onClick={() => console.log("a")}
-                    href="#ToDo"
+                    onClick={() => {
+                      setmmo(e);
+                      menuMaisOpcoes(mmo);
+                    }}
                   >
                     {e}
                   </a>

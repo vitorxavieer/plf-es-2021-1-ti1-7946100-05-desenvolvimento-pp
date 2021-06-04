@@ -7,6 +7,9 @@ import CadastroHabito from "./pages/cadastroHabito"
 import HomeLogado from "./pages/homeLogado"
 import Home from "./pages/home"
 import BarraSuperior from "./pages/BarraSuperior"
+import HistoricoHabitos from "./pages/historicoHabito"
+import LoadingPage from "./pages/loadingPage"
+import { Modal } from "../src/components/Modal"
 
 // const Telas = ["Home", "HomeLogado", "Cadastro de Hábitos", "Template"]
 
@@ -22,7 +25,11 @@ function App() {
   const [pagina, setPagina] = useState(0)
   const [user, setUser] = useState(null)
   const [showModal, setShowModal] = useState(false)
+  const [showModalEsqueciSenha, setShowModalEsqueciSenha] = useState(false)
+  const [showModalAlterarSenha, setShowModalAlterarSenha] = useState(false)
+  const [habitoSelecionado, setHabitoSelecionado] = useState(null)
   const [habitoCadastrado, setHabitoCadastrado] = useState(false)
+
   useEffect(() => {
     const unlisten = auth.onAuthStateChanged(authUser => {
       authUser ? setUser(authUser) : setUser(null)
@@ -46,9 +53,14 @@ function App() {
 
   return (
     <AppDiv>
+      <LoadingPage />
       <BarraSuperior
         showModal={showModal}
         setShowModal={setShowModal}
+        showModalEsqueciSenha={showModalEsqueciSenha}
+        setShowModalEsqueciSenha={setShowModalEsqueciSenha}
+        showModalAlterarSenha={showModalAlterarSenha}
+        setShowModalAlterarSenha={setShowModalAlterarSenha}
         user={user != null ? user.uid : null}
         setPagina={setPagina}
       />
@@ -57,6 +69,7 @@ function App() {
         <HomeLogado
           user={user != null ? user.uid : null}
           setPagina={setPagina}
+          setHabitoSelecionado={setHabitoSelecionado}
         />
       )}
       {pagina === 2 && (
@@ -67,6 +80,13 @@ function App() {
         />
       )}
       {pagina === 3 && <Template />}
+      {pagina === 4 && (
+        <HistoricoHabitos
+          user={user != null ? user.uid : null}
+          habito={habitoSelecionado}
+          setPagina={setPagina}
+        />
+      )}
     </AppDiv>
   )
 }

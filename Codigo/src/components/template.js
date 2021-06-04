@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Icon from './logo'
 import { palheta } from './palheta';
 
 export const Header1 = styled.h1`
@@ -133,12 +134,10 @@ export const Emoji = styled.div`
 `;
 
 export const Card = styled.div`
-  width: 136px;
-  height: 136px;
+  min-width: 100px;
+  min-height: 100px;
   /* Background */
   background: ${() => palheta.background};
-  display: grid;
-  place-items: center;
 
   /* Drop shadow (dark) */
 
@@ -146,9 +145,13 @@ export const Card = styled.div`
   border-radius: 10px;
 
   /* Text Styles */
+  font-family: Work Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 15px;
+  letter-spacing: -0.02em;
   color: ${() => palheta.text};
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 700;
 `;
 
 export const Label = styled.label`
@@ -209,7 +212,7 @@ export const Linha = styled.div`
 
 export function TextoDestaque(props) {
   return (
-    <TextoDestaqueDiv>
+    <TextoDestaqueDiv {...props}>
       <Body
         style={{
           margin: '0px',
@@ -257,25 +260,33 @@ export const Logo = styled.h1`
   text-shadow: -2px -2px 3px #ffff6a, 2px 2px 3px #776a22;
 `;
 
-export const BarraDeProgresso = styled.div`
-  max-width: 240px;
+export const BarraDeProgressoVazia = styled.div`
+  max-width: 440px;
   width: 100%;
   min-width: 120px;
   height: 30px;
-  margin-left: 20px;
 
   /* Rectangle 17 */
-  background: linear-gradient(
-    90deg,
-    #72bc83 0%,
-    #72bc83 ${(props) => props.valor - 0.1}%,
-    #afaaaa ${(props) => props.valor}%,
-    #afaaaa 107.3%
-  );
+  background: linear-gradient(90deg, #afaaaa);
   /* Drop shadow (dark) */
 
   box-shadow: ${() => palheta.boxDropShadow};
   border-radius: 5px;
+`;
+
+export const BarraDeProgressoCompleta = styled.div`
+  max-width: 440px;
+  width: ${(props) => props.valor}%;
+  height: 30px;
+
+  /* Rectangle 17 */
+  background: ${() => palheta.textImportant};
+
+  box-shadow: ${() => palheta.boxDropShadow};
+  border-radius: 5px;
+
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition: width 0.5s;
 `;
 
 const Quadrado2 = styled.div`
@@ -322,7 +333,9 @@ function Template() {
           <Emoji style={{ margin: '20px' }}>😉</Emoji>
         </div>
         <NewInputs placeholder="Input Alternativo" />
-        <BarraDeProgresso valor={72} />
+        <BarraDeProgressoVazia>
+          <BarraDeProgressoCompleta valor={72} />
+        </BarraDeProgressoVazia>
       </div>
       <div className="colors-parte">
         <Header2>Colors</Header2>
