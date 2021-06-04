@@ -13,7 +13,7 @@ export function updateDoc(colecao, valores, documento, setFeito, setErros) {
       setFeito(true)
     })
     .catch(error => {
-      setErros(error)
+      // setErros(error)
       console.error("Error writing document: ", error)
     })
 }
@@ -116,7 +116,7 @@ export function readDocsDuasCondicoes(
       let valores = []
       querySnapshot.forEach(doc => {
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data())
+        // console.log(doc.id, " => ", doc.data())
         valores.push({ ...doc.data(), docId: doc.id })
       })
       setValores(valores)
