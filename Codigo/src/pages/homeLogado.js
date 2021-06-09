@@ -274,6 +274,7 @@ function HabitoLinha(props) {
                     habitoId: props.habitoId,
                     emoji: props.emoji,
                     unidade: props.unidade,
+                    valor: parseInt(props.valor)
                   })
                   props.setPagina(4)
                 }}
