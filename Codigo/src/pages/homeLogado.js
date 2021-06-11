@@ -16,8 +16,16 @@ export const BodyPage = styled.div`
   padding: 30px;
   min-height: calc(100vh - 96px);
   max-width: 600px;
+  height: 100%;
   margin: auto;
   box-shadow: ${() => palheta.bodyBoxShadow};
+
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
 
   .Habitos {
     display: flex;
@@ -183,9 +191,15 @@ const changeDateformat = data => {
   return hour + ":" + minute
 }
 
-const getHourAndMinute = data => {
+const getHourAndMinuteFromFirebaseDate = data => {
   let hourInMinutes = (data?.toDate()?.getHours() ?? 0) * 60
   let minute = data?.toDate()?.getMinutes() ?? 0
+  return hourInMinutes + minute
+}
+
+const getHourMinuteFromString = hour => {
+  let hourInMinutes = Number(hour.substring(0, 2)) * 60
+  let minute = Number(hour.substring(3, 5))
   return hourInMinutes + minute
 }
 
@@ -250,7 +264,11 @@ function HabitoLinha(props) {
           {props.emoji}
         </Template.Emoji>
         <Template.TextoDestaque>
-          <span className="Horario">{changeDateformat(props.horario)}</span>
+          <span className="Horario">
+            {typeof props.horario === "string"
+              ? props.horario
+              : changeDateformat(props.horario)}
+          </span>
         </Template.TextoDestaque>
       </div>
       <div className="NewInputs">
@@ -344,7 +362,7 @@ function EmojiOnBar(props) {
   const emojiRef = useRef(null)
   useEffect(() => {
     if (emojiRef.current) emojiRef.current.innerHTML = props.emoji
-  }, [emojiRef])
+  }, [emojiRef, props.emoji])
 
   return (
     <Template.Emoji ref={emojiRef} key={props.key}>
@@ -481,7 +499,16 @@ function HomeLogado(props) {
           <div className="Habitos">
             {habitos
               .sort((a, b) =>
-                getHourAndMinute(a["horário"]) < getHourAndMinute(b["horário"])
+                (typeof a["horario"] === "string"
+                  ? getHourMinuteFromString(a["horario"])
+                  : getHourAndMinuteFromFirebaseDate(
+                      a["horário"] ?? a["horario"]
+                    )) <
+                (typeof b["horario"] === "string"
+                  ? getHourMinuteFromString(b["horario"])
+                  : getHourAndMinuteFromFirebaseDate(
+                      b["horário"] ?? b["horario"]
+                    ))
                   ? -1
                   : +1
               )
@@ -500,7 +527,7 @@ function HomeLogado(props) {
                   key={i}
                   valor={e.meta}
                   unidade={e.unidade}
-                  horario={e["horário"]}
+                  horario={e["horario"] ?? e["horário"]}
                   nome={e.nome}
                   emoji={e.emoji}
                   ordem={i + 1}
@@ -510,24 +537,26 @@ function HomeLogado(props) {
         )}
 
         <section className="End">
-          <div className="ProgressoCard">
-            <h3 className="ProgressoDia"></h3>
-            <h4 className="ProgressoTitulo">
-              {Math.round((habitosConcluidos.length / habitos.length) * 100)} %
-              Completo
-            </h4>
-            <div className="Progresso">
-              <Template.BarraDeProgressoVazia>
-                <Template.BarraDeProgressoCompleta
-                  //Alterar parâmetro de progresso da Barra
-                  valor={(habitosConcluidos.length / habitos.length) * 100}
-                ></Template.BarraDeProgressoCompleta>
-              </Template.BarraDeProgressoVazia>
+          {carregarHabitos && habitos.length > 0 && (
+            <div className="ProgressoCard">
+              <h3 className="ProgressoDia"></h3>
+              <h4 className="ProgressoTitulo">
+                {Math.round((habitosConcluidos.length / habitos.length) * 100)}{" "}
+                % Completo
+              </h4>
+              <div className="Progresso">
+                <Template.BarraDeProgressoVazia>
+                  <Template.BarraDeProgressoCompleta
+                    //Alterar parâmetro de progresso da Barra
+                    valor={(habitosConcluidos.length / habitos.length) * 100}
+                  ></Template.BarraDeProgressoCompleta>
+                </Template.BarraDeProgressoVazia>
+              </div>
+              <div className="EmojisConcluidos">
+                <EmojiList habitos={habitos.filter(e => e.concluido)} />
+              </div>
             </div>
-            <div className="EmojisConcluidos">
-              <EmojiList habitos={habitos.filter(e => e.concluido)} />
-            </div>
-          </div>
+          )}
           <div className="Submit">
             <Template.Button
               className="Button"
