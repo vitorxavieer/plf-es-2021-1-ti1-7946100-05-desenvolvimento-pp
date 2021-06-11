@@ -361,7 +361,7 @@ function EmojiOnBar(props) {
   const emojiRef = useRef(null)
   useEffect(() => {
     if (emojiRef.current) emojiRef.current.innerHTML = props.emoji
-  }, [emojiRef])
+  }, [emojiRef, props.emoji])
 
   return (
     <Template.Emoji ref={emojiRef} key={props.key}>
