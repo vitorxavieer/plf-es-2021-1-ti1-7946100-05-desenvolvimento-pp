@@ -10,6 +10,7 @@ import BarraSuperior from "./pages/BarraSuperior"
 import HistoricoHabitos from "./pages/historicoHabito"
 import LoadingPage from "./pages/loadingPage"
 import { Modal } from "../src/components/Modal"
+import Acompanhamento from "../src/pages/acompanhamento"
 
 // const Telas = ["Home", "HomeLogado", "Cadastro de Hábitos", "Template"]
 
@@ -84,6 +85,12 @@ function App() {
         <HistoricoHabitos
           user={user != null ? user.uid : null}
           habito={habitoSelecionado}
+          setPagina={setPagina}
+        />
+      )}
+      {pagina === 5 && (
+        <Acompanhamento
+          user={user != null ? user.uid : null}
           setPagina={setPagina}
         />
       )}

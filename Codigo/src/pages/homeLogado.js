@@ -564,7 +564,7 @@ function HomeLogado(props) {
             >
               Adicionar Hábito
             </Template.Button>
-            <Template.Link>Acompanhamento</Template.Link>
+            <Template.Link onClick={() => props.setPagina(5)}>Acompanhamento</Template.Link>
             <Template.Link>Mais Informações</Template.Link>
           </div>
         </section>
