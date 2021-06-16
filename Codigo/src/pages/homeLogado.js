@@ -110,7 +110,6 @@ export const BodyPage = styled.div`
   .ProgressoCard {
     padding: 24px;
     padding-bottom: 32px;
-    margin: 40px 0;
   }
 
   .ProgressoTitulo {
@@ -136,7 +135,7 @@ export const BodyPage = styled.div`
   .EmojiStreak {
     background: ${() => palheta.background};
     box-shadow: ${() => palheta.boxDropShadow};
-    border-radius: 15px;
+    border-radius: 25px;
     width: 80px;
     height: 42px;
     margin: 10px;
@@ -314,6 +313,7 @@ function HabitoLinha(props) {
       if (e.habito === props.habitoId) e.streak = count;
     });
     props.setHabitosConcluidos(habitosConcluidosAtualizado);
+    setHistoricoFeito(false);
   }, [historicoFeito]);
 
   return (
