@@ -42,23 +42,34 @@ const BodyPage = styled.div`
     margin: 40px 0px;
   }
   `
+  function checkDigit(number) {
+    return number < 10 ? "0" + number : number
+  }
+
+  function transformarData2(data) {
+    let day = data.getDate(),
+      month = data.getMonth() + 1
+  
+    return checkDigit(day) + "/" + checkDigit(month)
+  }
+
 function preencherSemana(habitosSemana,habitos){
   let historicoSemana = [] 
   let data = new Date()
   let amanha = new Date().setHours(24,0,0,0)
   let total = 0 , i , habitosFeitos
-  let semanaPassada = new Date(data.getFullYear(),data.getMonth(),data.getDate()-7,0,0,0)
+  let semanaPassada = new Date(data.getFullYear(),data.getMonth(),data.getDate()-7,0,0,0).setHours(0, 0, 0, 0)
   for (i = semanaPassada;i<amanha;i+=86400000){
-    console.log(new Date(i),new Date(amanha))
     habitosFeitos = habitosSemana.filter(e=>e.data.toDate() > i && e.data.toDate()<i+86400000).length
     total += habitosFeitos
     historicoSemana.push({
       habitos_feitos: habitosFeitos / habitos.length * 100,
-      name: new Date (i),
+      name: transformarData2(new Date (i)),
       meta: 100
     })
   }
-  console.log(historicoSemana)
+  let media = Math.round((total / (habitos.length * 8)) * 100)
+  historicoSemana.map(e => (e.media = media))
   return historicoSemana
 }
 
@@ -72,11 +83,9 @@ function Acompanhamento({ user, setPagina }) {
   useEffect(()=>{
     readDocsUmaCondicao("habitos","user",user,setHabitos,setFeitoLer,setErro)
   },[])
-  console.log(habitos,feitoLer)
   useEffect(()=>{
     let data = new Date()
     let semanaPassada = new Date(data.getFullYear(),data.getMonth(),data.getDate()-7,0,0,0)
-    console.log(data,semanaPassada)
     readDocsDuasCondicoesData("historico_habito","user",user,"data",semanaPassada,setHabitosSemana,setFeitoLerSemana,setErroSemana)
   },[habitos])
   return (
@@ -105,9 +114,14 @@ function Acompanhamento({ user, setPagina }) {
                 >
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
+                  <YAxis
+                  tickFormatter={tick => {
+                    return `${tick}%`
+                  }}
+                />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="habito_feito" fill="#82ca9d" />
+                  <Bar dataKey="habitos_feitos" fill="#82ca9d" />
                   <Line type="monotone" dataKey="media" stroke="#ff7300" />
                   <Line type="monotone" dataKey="meta" />
                 </ComposedChart>
